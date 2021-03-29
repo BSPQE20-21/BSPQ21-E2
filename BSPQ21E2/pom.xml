@@ -28,6 +28,12 @@
   </dependencies>
 
   <build>
+   <resources>
+		<resource>
+			<directory>src/main/resources</directory>
+			<filtering>true</filtering>
+		</resource>
+	</resources>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
@@ -43,6 +49,11 @@
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
+		   <configuration>
+				<source>1.8</source>
+				<target>1.8</target>
+				<encoding>UTF-8</encoding>
+			</configuration>
         </plugin>
         <plugin>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -69,6 +80,15 @@
           <artifactId>maven-project-info-reports-plugin</artifactId>
           <version>3.0.0</version>
         </plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-javadoc-plugin</artifactId>
+			<version>3.0.0</version>
+			<configuration>
+				<show>private</show>
+				<nohelp>true</nohelp>
+			</configuration>
+		</plugin>
       </plugins>
     </pluginManagement>
   </build>
