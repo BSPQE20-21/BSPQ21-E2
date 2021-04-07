@@ -6,6 +6,19 @@ public class Employee {
 	private String name;
 	private String address;
 	private String department;
+	
+	public Employee() {
+		super();
+	}
+	
+	public Employee(int id, String name, String address, String department) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.department = department;
+	}
+
 
 	public int getId() {
 		return id;
@@ -37,5 +50,12 @@ public class Employee {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", address=" + address + ", department=" + department + "]";
+	}
+	
+	
 
 }
