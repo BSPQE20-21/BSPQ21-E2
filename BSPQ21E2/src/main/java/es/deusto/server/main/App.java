@@ -1,5 +1,6 @@
 package es.deusto.server.main;
 
+import java.rmi.Naming;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,8 @@ import es.deusto.server.domainObjects.Employee;
 import es.deusto.server.domainObjects.Team;
 import es.deusto.server.domainObjects.TeamManager;
 import es.deusto.server.dto.EmployeeDTO;
+import es.deusto.server.facade.IRemoteFacade;
+import es.deusto.server.facade.RemoteFacade;
 
 /**
  * Hello world!
@@ -16,23 +19,39 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Hello World!" );
+//        System.out.println( "Hello World!" );
+//        
+//        EmployeeDTO e1 = new EmployeeDTO(1, "A", "Bilbao", "IT");
+//        EmployeeDTO e2 = new EmployeeDTO(2, "B", "Bilbao", "IT");
+//        EmployeeDTO e3 = new EmployeeDTO(3, "C", "Bilbao", "IT");
+//        EmployeeDTO e4 = new EmployeeDTO(4, "D", "Bilbao", "IT");
+//        
+//        List<EmployeeDTO> members = new ArrayList<EmployeeDTO>();
+//        
+//        members.add(e1);
+//        members.add(e2);
+//        members.add(e3);
+//        members.add(e4);
+//        
+//        TeamManager tm = new TeamManager();
+//        Team t1 = tm.createTeam(members);
+//        
+//        System.out.println(t1.toString());
         
-        EmployeeDTO e1 = new EmployeeDTO(1, "A", "Bilbao", "IT");
-        EmployeeDTO e2 = new EmployeeDTO(2, "B", "Bilbao", "IT");
-        EmployeeDTO e3 = new EmployeeDTO(3, "C", "Bilbao", "IT");
-        EmployeeDTO e4 = new EmployeeDTO(4, "D", "Bilbao", "IT");
+        if (System.getSecurityManager() == null) {
+        	System.setSecurityManager(new SecurityManager());
+        }
         
-        List<EmployeeDTO> members = new ArrayList<EmployeeDTO>();
+        String name = "//" + args[0] + ":" + args[1] + "/" + args[2];
         
-        members.add(e1);
-        members.add(e2);
-        members.add(e3);
-        members.add(e4);
+        try {
+        	IRemoteFacade remoteFacade = RemoteFacade.getInstance();
+        	Naming.rebind(name, remoteFacade);
+        	System.out.println("Server '" + name + "' started!");
+        } catch (Exception ex) {
+        	System.err.println("#Server Exception: " + ex.getMessage());
+        	ex.printStackTrace();
+        }
         
-        TeamManager tm = new TeamManager();
-        Team t1 = tm.createTeam(members);
-        
-        System.out.println(t1.toString());
     }
 }
