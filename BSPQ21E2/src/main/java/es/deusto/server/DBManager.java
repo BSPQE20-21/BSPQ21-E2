@@ -1,4 +1,4 @@
-package es.deusto.spq;
+package es.deusto.server;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

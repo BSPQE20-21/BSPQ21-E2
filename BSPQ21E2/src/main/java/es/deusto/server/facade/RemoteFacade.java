@@ -1,4 +1,4 @@
-package es.deusto.spq.facade;
+package es.deusto.server.facade;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
