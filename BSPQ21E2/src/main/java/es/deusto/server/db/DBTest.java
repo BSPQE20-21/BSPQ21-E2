@@ -1,4 +1,4 @@
-package es.deusto.server;
+package es.deusto.server.db;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -9,6 +9,8 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import es.deusto.server.domainObjects.Employee;
 
 /**
  * Retrive information from mysql DB!
