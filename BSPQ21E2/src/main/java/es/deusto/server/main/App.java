@@ -2,7 +2,9 @@ package es.deusto.server.main;
 
 import java.rmi.Naming;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 
 import es.deusto.server.domainObjects.Employee;
 import es.deusto.server.domainObjects.Team;
@@ -19,6 +21,8 @@ public class App
 {
     public static void main( String[] args )
     {
+    	
+    	
 //        System.out.println( "Hello World!" );
 //        
 //        EmployeeDTO e1 = new EmployeeDTO(1, "A", "Bilbao", "IT");
@@ -53,5 +57,71 @@ public class App
         	ex.printStackTrace();
         }
         
+        boolean repeat = true;
+		while (repeat) {
+			System.out.println("MENU:");
+			System.out.println("1. Create a Team");
+			System.out.println("2. Manage Employees");
+			System.out.println("3. Quit");
+			
+			Scanner option = new Scanner(System.in);
+		    System.out.println("Select option: ");
+		    
+		    try {
+                int choose = option.nextInt();
+ 
+                switch (choose) {
+                    case 1:
+                    	createTeam();
+                        break;
+                    case 2:
+                    	manageEmployee();
+                        break;
+                    case 3:
+                    	repeat = false;
+                        break;
+                    default:
+                        System.out.println("You must insert one of the numbers.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("You must insert one of the numbers.");
+            }
+        }	
+        
     }
+    
+    private static void manageEmployee(){
+		System.out.println("MANAGE EMPLOYEES");
+    	System.out.println("1. ");
+    	System.out.println("2. ");
+    	System.out.println("3. ");
+    	
+    	Scanner option = new Scanner(System.in);
+	    System.out.println("Select option: ");
+	    
+	    try {
+            int choose = option.nextInt();
+
+            switch (choose) {
+                case 1:
+                	
+                    break;
+                case 2:
+                	
+                    break;
+                case 3:
+                	
+                    break;
+                default:
+                    System.out.println("You must insert one of the numbers.");
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("You must insert one of the numbers.");
+        }
+	}
+
+
+	private static void createTeam() {
+		//TODO	
+	}
 }
