@@ -61,11 +61,10 @@ public class App
 		while (repeat) {
 			System.out.println("MENU:");
 			System.out.println("1. Create a Team");
-			System.out.println("2. Manage Employees");
-			System.out.println("3. Quit");
+			System.out.println("2. Quit");
 			
 			Scanner option = new Scanner(System.in);
-		    System.out.println("Select option: ");
+		    System.out.println("Select an option: ");
 		    
 		    try {
                 int choose = option.nextInt();
@@ -75,9 +74,6 @@ public class App
                     	createTeam();
                         break;
                     case 2:
-                    	manageEmployee();
-                        break;
-                    case 3:
                     	repeat = false;
                         break;
                     default:
@@ -89,36 +85,6 @@ public class App
         }	
         
     }
-    
-    private static void manageEmployee(){
-		System.out.println("MANAGE EMPLOYEES");
-    	System.out.println("1. ");
-    	System.out.println("2. ");
-    	System.out.println("3. ");
-    	
-    	Scanner option = new Scanner(System.in);
-	    System.out.println("Select option: ");
-	    
-	    try {
-            int choose = option.nextInt();
-
-            switch (choose) {
-                case 1:
-                	
-                    break;
-                case 2:
-                	
-                    break;
-                case 3:
-                	
-                    break;
-                default:
-                    System.out.println("You must insert one of the numbers.");
-            }
-        } catch (InputMismatchException e) {
-            System.out.println("You must insert one of the numbers.");
-        }
-	}
 
 
 	private static void createTeam() {
