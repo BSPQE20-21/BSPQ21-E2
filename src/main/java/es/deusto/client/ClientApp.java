@@ -23,6 +23,10 @@ public class ClientApp {
 	private WebTarget webTarget;
 	private ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>();
 	
+	public ClientApp() {
+		
+	}
+	
 	public ClientApp(String hostname, String port) {
 		client = ClientBuilder.newClient();
 		webTarget = client.target(String.format("http://%s:%s/rest/server", hostname, port));
