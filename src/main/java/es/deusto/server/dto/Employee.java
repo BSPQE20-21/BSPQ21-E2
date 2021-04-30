@@ -12,16 +12,18 @@ public class Employee {
 	private String name;
 	private String address;
 	private String department;
+	private boolean leader;
 	
 	public Employee() {
 		
 	}
 	
-	public Employee(int id, String name, String address, String department) {
+	public Employee(int id, String name, String address, String department, boolean leader) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.department = department;
+		this.leader = leader;
 	}
 
 	public int getId() {
@@ -56,11 +58,20 @@ public class Employee {
 		this.department = department;
 	}
 
-	@Override
-	public String toString() {
-		return "EmployeeData [id=" + id + ", name=" + name + ", address=" + address + ", department=" + department
-				+ "]";
+	public boolean isLeader() {
+		return leader;
 	}
 
+	public void setLeader(boolean leader) {
+		this.leader = leader;
+	}
+
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", address=" + address + ", department=" + department
+				+ ", leader=" + leader + "]";
+	}
+	
+	
 	
 }

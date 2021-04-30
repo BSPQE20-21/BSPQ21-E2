@@ -10,17 +10,18 @@ public class EmployeeDTO implements Serializable{
 	private String name;
 	private String address;
 	private String department;
-	
+	private boolean leader;
 	public EmployeeDTO() {
 		super();
 	}
 	
-	public EmployeeDTO(int id, String name, String address, String department) {
+	public EmployeeDTO(int id, String name, String address, String department, boolean leader) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.department = department;
+		this.leader = leader;
 	}
 	
 	public int getId() {
@@ -47,5 +48,12 @@ public class EmployeeDTO implements Serializable{
 	public void setDepartment(String department) {
 		this.department = department;
 	}
+	public boolean isLeader() {
+		return leader;
+	}
 
-}
+	public void setLeader(boolean leader) {
+		this.leader = leader;
+	}
+
+}	
