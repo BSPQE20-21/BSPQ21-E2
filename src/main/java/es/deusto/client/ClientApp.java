@@ -1,5 +1,12 @@
 package es.deusto.client;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -11,17 +18,28 @@ import javax.ws.rs.core.Response.Status;
 
 import org.glassfish.jersey.client.ClientResponse;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 import es.deusto.serialization.EmployeeData;
+
 
 public class ClientApp {
 
 	private Client client;
 	private WebTarget webTarget;
 	private ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>();
+	private JFrame frmMenu;
+	private JFrame frmAddEmployees;
+	private JFrame frmRemoveEmployee;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
 	
 	public ClientApp() {
 		
@@ -30,134 +48,16 @@ public class ClientApp {
 	public ClientApp(String hostname, String port) {
 		client = ClientBuilder.newClient();
 		webTarget = client.target(String.format("http://%s:%s/rest/server", hostname, port));
-		
-		Scanner sn = new Scanner(System.in);
-		boolean leave = false;
-		boolean numberIsCorrect = false;
-		int option; 
-		int optionDepartment;
-		int optionDelete;
-		int id;
-		String name;
-		String address;
-		String department;
-		
-		 boolean repeat = true;
-			while (repeat) {
-				System.out.println("MENU:");
-				System.out.println("1. Manage Employees");
-				System.out.println("2. Manage Teams");
-				System.out.println("3. Quit");
-				
-				Scanner optionf = new Scanner(System.in);
-			    System.out.println("Select an option: ");
-			    
-			    try {
-	                int choose = optionf.nextInt();
-	 
-	                switch (choose) {
-	                    case 1:
-	                    	while (!leave) {
-	                			numberIsCorrect = false;
-	                			System.out.println("1. Add Employee");
-	                			System.out.println("2. Remove Employee");
-	                			System.out.println("3. See Employee");
-	                			System.out.println("3. Exit");
-
-	                			try {
-	                				System.out.println("Select an option");
-	                				option = sn.nextInt();
-
-	                				switch (option) {
-	                				case 1:
-
-	                					System.out.println("Insert Employee ID:");
-	                					id = sn.nextInt();
-	                					sn.nextLine();
-	                					System.out.println("Insert Employee Name:");
-	                					name = sn.nextLine();
-
-	                					System.out.println("Insert Employee Address:");
-	                					address = sn.nextLine();
-
-	                					System.out.println("Insert deparment number:");
-	                					System.out.println("1.IT Department");
-	                					optionDepartment = sn.nextInt();
-	                					
-	                					switch (optionDepartment) {
-	                					case 1:
-	                						department = "IT Department";    						
-	                						registerUser(id, name, address, department);
-	                						break;
-	                					}
-
-	                					break;
-	                					
-	                				case 2:
-	                					if(employees.size() == 0) {
-	                						getEmployees();
-	                						System.out.println("Retrieving employees...");
-	                					}
-	                					while(!numberIsCorrect) {
-	                						System.out.println("Select the employee to be removed with the index that are displayed");
-	                						System.out.println(employees.size());
-
-	                						for(int i = 0; i<employees.size() ;i++) {
-	                							System.out.println(i + ": " + employees.get(i).getName());
-
-	                						}
-
-	                						optionDelete = sn.nextInt();
-
-	                						if(optionDelete >=0 && optionDelete <employees.size()) {
-	                							System.out.println(employees.size());
-	                							employees.remove(optionDelete);
-	                							numberIsCorrect = true;
-	                						}
-	                					}
-	                					break;
-
-	                				case 3:
-	                					if(employees.isEmpty()) {
-	                						getEmployees();
-	                						System.out.println("Retrieving employees...");
-	                					} else {
-	                						for (EmployeeData employee : employees) {
-												System.out.println(employee.toString());
-											}
-	                					}
-	                					break;	   
-	                				
-	                				case 4:
-		                				leave = true;
-		                				break;
-	                				default:
-	                					System.out.println("Please, select one of the available numbers.");
-	                				}
-	                			} catch (InputMismatchException e) {
-	                				System.out.println("Please, select one of the available numbers.");
-	                				sn.next();
-	                			}
-	                		}
-	                        break;
-	                        
-	                    case 2:
-	                    	System.err.println("Functionallity not yet implemented.");
-	                        break;
-	                        
-	                    case 3:
-	                    	repeat = false;
-	                        break;
-	                    default:
-	                        System.out.println("You must insert one of the numbers.");
-	                }
-	            } catch (InputMismatchException e) {
-	                System.out.println("You must insert one of the numbers.");
-	            } finally {
-	            	optionf.close();
-	            }
-	        }
-			sn.close();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ClientApp window = new ClientApp(0);				
+					window.frmMenu.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});	 
 	}
 
 	public void registerUser(int id, String name, String address, String department) {
@@ -215,4 +115,271 @@ public class ClientApp {
 
 		ClientApp exampleClient = new ClientApp(hostname, port);
 	}
+	
+	
+	public ClientApp(int numero) {
+		if (numero == 0) {
+			
+			initialize();
+			numero++;
+			System.out.println("Estoy aqui");
+		} else if(numero == 1) {
+			System.out.println("Ahora aqui");
+			initialize2();
+		} else {
+			System.out.println("Ahora aqui");
+			initialize3();
+		}
+		
+	}
+	
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmMenu = new JFrame();
+		frmMenu.setTitle("MENU");
+		frmMenu.setBounds(100, 100, 450, 300);
+		frmMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMenu.getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JButton btnNewButton = new JButton("Quit");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmMenu.setVisible(false);
+				frmMenu.dispose();
+			}
+		});
+		frmMenu.getContentPane().add(btnNewButton, BorderLayout.SOUTH);
+		
+		JPanel panel = new JPanel();
+		frmMenu.getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		panel.add(panel_1, BorderLayout.NORTH);
+		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+		
+		JLabel lblNewLabel = new JLabel("Manage Employees");
+		panel_1.add(lblNewLabel);
+		
+		JButton btnAdd = new JButton("Add Employee");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							ClientApp window2 = new ClientApp(1);
+							frmMenu.setVisible(false);
+							frmMenu.dispose();
+							window2.frmAddEmployees.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				
+			}
+		});
+		panel_1.add(btnAdd);
+		
+		JButton btnRemoveEmployee = new JButton("Remove employee");
+		panel_1.add(btnRemoveEmployee);
+		btnRemoveEmployee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							frmMenu.setVisible(false);
+							frmMenu.dispose();
+							ClientApp window3 = new ClientApp(2);				
+							window3.frmRemoveEmployee.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+
+				
+			}
+		});
+		
+		
+		JButton btnSee = new JButton("See Employee");
+		panel_1.add(btnSee);
+		btnSee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				String sEmployee = "";
+				
+				
+				if(employees.isEmpty()) {
+					getEmployees();
+				} else {
+					for (EmployeeData employee : employees) {
+						sEmployee = sEmployee + employee.toString() + "\n";
+					}
+				}
+				JOptionPane.showMessageDialog(panel_1, sEmployee);
+			}
+		});
+		
+		JLabel lblNewLabel_1 = new JLabel("Manage Team");
+		panel_1.add(lblNewLabel_1);
+		
+		JButton btnNewButton_3 = new JButton("New button");
+		panel_1.add(btnNewButton_3);
+	}
+	
+	private void initialize2() {
+		frmAddEmployees = new JFrame();
+		frmAddEmployees.setTitle("Add Employees");
+		frmAddEmployees.setBounds(100, 100, 450, 300);
+		frmAddEmployees.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAddEmployees.getContentPane().setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_1 = new JPanel();
+		frmAddEmployees.getContentPane().add(panel_1, BorderLayout.SOUTH);
+		
+		JButton btnNewButton = new JButton("Add Employee");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int id = Integer.parseInt(textField.getText());
+				String name = textField_1.getText();
+				String address = textField_2.getText();
+				String department = "IT Department";    						
+				registerUser(id, name, address, department);
+			}
+		});	
+		panel_1.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Exit");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmAddEmployees.setVisible(false);
+				frmAddEmployees.dispose();
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							ClientApp window = new ClientApp(0);
+							
+							window.frmMenu.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+			}
+		});		
+		panel_1.add(btnNewButton_1);
+		
+		JPanel panel_2 = new JPanel();
+		frmAddEmployees.getContentPane().add(panel_2, BorderLayout.CENTER);
+		panel_2.setLayout(new GridLayout(3, 1, 0, 0));
+		
+		JLabel lblNewLabel_1 = new JLabel("Insert Employee ID:");
+		panel_2.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		panel_2.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Insert Employee Name:");
+		panel_2.add(lblNewLabel);
+		
+		textField_1 = new JTextField();
+		panel_2.add(textField_1);
+		textField_1.setColumns(10);
+		
+		JLabel lblNewLabel_2 = new JLabel("Insert Employee Address:");
+		panel_2.add(lblNewLabel_2);
+		
+		textField_2 = new JTextField();
+		panel_2.add(textField_2);
+		textField_2.setColumns(10);
+	}
+	
+	private void initialize3() {
+		frmRemoveEmployee = new JFrame();
+		frmRemoveEmployee.setBounds(100, 100, 450, 300);
+		frmRemoveEmployee.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmRemoveEmployee.getContentPane().setLayout(new BorderLayout(0, 0));
+		JPanel panel = new JPanel();
+		JComboBox<String> comboBox = new JComboBox<String>();
+		frmRemoveEmployee.getContentPane().add(panel, BorderLayout.SOUTH);
+		
+		JButton btnNewButton = new JButton("Remove");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+					//optionDelete = sn.nextInt();
+					String optionDelete = comboBox.getSelectedItem().toString();
+					int num = 0;
+					int defNum = -1;
+					
+					for (EmployeeData employee : employees) {
+						if(employee.getName().equals(optionDelete)) {
+							defNum = num;
+						}
+						num =+ 1;
+					}
+					
+					if(defNum >=0) {
+						employees.remove(defNum);					
+					}
+			}
+		});
+		panel.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("Exit");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							frmRemoveEmployee.setVisible(false);
+							frmRemoveEmployee.dispose();
+							ClientApp window = new ClientApp(0);
+							
+							window.frmMenu.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+
+			}
+		});
+		
+		panel.add(btnNewButton_1);
+		
+		JPanel panel_1 = new JPanel();
+		frmRemoveEmployee.getContentPane().add(panel_1, BorderLayout.CENTER);
+		
+		if(employees.size() == 0) {
+			getEmployees();
+			//System.out.println("Retrieving employees...");
+		}
+		
+//		for(int i = 0; i<employees.size() ;i++) {
+//			System.out.println(i + ": " + employees.get(i).getName());
+//
+//		}
+		for (EmployeeData employee : employees) {
+			comboBox.addItem(employee.getName());
+		}
+		
+		panel_1.add(comboBox);
+		comboBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(comboBox.getSelectedItem().toString());
+			}
+		});
+	}
+	
+	
 }
