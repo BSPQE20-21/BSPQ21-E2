@@ -12,18 +12,17 @@ public class Employee {
 	private String name;
 	private String address;
 	private String department;
-	private boolean leader;
+	private boolean leader = false;
 	
 	public Employee() {
 		
 	}
 	
-	public Employee(int id, String name, String address, String department, boolean leader) {
+	public Employee(int id, String name, String address, String department) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.department = department;
-		this.leader = leader;
 	}
 
 	public int getId() {

@@ -10,18 +10,17 @@ public class EmployeeDTO implements Serializable{
 	private String name;
 	private String address;
 	private String department;
-	private boolean leader;
+	private boolean leader = false;
 	public EmployeeDTO() {
 		super();
 	}
 	
-	public EmployeeDTO(int id, String name, String address, String department, boolean leader) {
+	public EmployeeDTO(int id, String name, String address, String department) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.department = department;
-		this.leader = leader;
 	}
 	
 	public int getId() {
