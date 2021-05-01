@@ -30,7 +30,7 @@ public class ServerManager implements Runnable {
 	private WebTarget webTarget;
 	private static final Logger log = Logger.getLogger("Main");
 	static ResourceBundle resourceBundle;
-	
+	public static ServerManager manager;
 	private Thread thread;
 	private final AtomicBoolean running = new AtomicBoolean(false);
 	
@@ -47,6 +47,7 @@ public class ServerManager implements Runnable {
 	}
 	
 	public ServerManager(String hostname, String port) {
+		manager = this;
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
@@ -57,136 +58,100 @@ public class ServerManager implements Runnable {
 		thread = new Thread(this);
 		thread.start();
 	}
-
 	
-	public void addEmployee() {
-		WebTarget employeeWebTarget = webTarget.path("/addEmployee");
-		Invocation.Builder invocationBuilder = employeeWebTarget.request(MediaType.APPLICATION_JSON);
-		Response response = invocationBuilder.get();
-		
-		if (response.getStatus() == Status.OK.getStatusCode()) {
-			EmployeeData employeeData = response.readEntity(EmployeeData.class);
-			try {	
-	            tx.begin();
-	            log.info(resourceBundle.getString("add_employee"));
-				Employee employee = null;
-				try {
-					employee = pm.getObjectById(Employee.class, employeeData.getId());
-					log.info(resourceBundle.getString("err_empl_already_in_db"));
-				} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-					log.info(resourceBundle.getString("ok_empl_not_found"));
-					employee = new Employee(employeeData.getId(), employeeData.getName(), employeeData.getAddress(), employeeData.getDepartment());
-					pm.makePersistent(employee);
-					tx.commit();
-					log.info(resourceBundle.getString("empl_add_correct"));
-				}
-	        } finally {
-	            if (tx.isActive()) {
-	                tx.rollback();
-	            }
-			}
-		} else {
-			log.info(resourceBundle.getString("err_add_empl"));
-		}
-	}
-
-	public void updateEmployee() {
-		WebTarget employeeWebTarget = webTarget.path("/updateEmployee");
-		Invocation.Builder invocationBuilder = employeeWebTarget.request(MediaType.APPLICATION_JSON);
-		Response response = invocationBuilder.get();
-		
-		if (response.getStatus() == Status.OK.getStatusCode()) {
-			EmployeeData employeeData = response.readEntity(EmployeeData.class);
-			try {	
-	            tx.begin();
-	            log.info(resourceBundle.getString("update_employee"));
-				Employee employee = null;
-				try {
-					employee = pm.getObjectById(Employee.class, employeeData.getId());
-					pm.retrieve(employee);
-				} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-					log.info(resourceBundle.getString("err_empl_not_found"));
-				}
-				employee.setId(employeeData.getId());
-				employee.setName(employeeData.getName());
-				employee.setAddress(employeeData.getAddress());
-				employee.setDepartment(employeeData.getDepartment());
+	public void addEmployee(EmployeeData employeeData) {
+		try {	
+            tx.begin();
+            log.info(resourceBundle.getString("add_employee"));
+			Employee employee = null;
+			try {
+				employee = pm.getObjectById(Employee.class, employeeData.getId());
+				log.info(resourceBundle.getString("err_empl_already_in_db"));
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				log.info(resourceBundle.getString("ok_empl_not_found"));
+				employee = new Employee(employeeData.getId(), employeeData.getName(), employeeData.getAddress(), employeeData.getDepartment());
 				pm.makePersistent(employee);
 				tx.commit();
-				log.info(resourceBundle.getString("empl_upd_correct"));
-	        } finally {
-	            if (tx.isActive()) {
-	                tx.rollback();
-	            }
+				log.info(resourceBundle.getString("empl_add_correct"));
 			}
-		} else {
-			log.info(resourceBundle.getString("err_upd_empl"));
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
 		}
 	}
-	
-	public void deleteEmployee() {
-		WebTarget employeeWebTarget = webTarget.path("/deleteEmployee");
-		Invocation.Builder invocationBuilder = employeeWebTarget.request(MediaType.APPLICATION_JSON);
-		Response response = invocationBuilder.get();
-		
-		if (response.getStatus() == Status.OK.getStatusCode()) {
-			try {	
-				int id = response.readEntity(int.class);
-	            tx.begin();
-	            log.info(resourceBundle.getString("deleting_employee"));
-				Employee employee = null;
-				try {
-		            log.info(resourceBundle.getString("getting_employee"));
-					employee = pm.getObjectById(Employee.class, id);
-					pm.deletePersistent(employee);
-				} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-					log.info(resourceBundle.getString("err_empl_not_found"));
-				}
-				tx.commit();
-	            log.info(resourceBundle.getString("ok_del_empl"));
-	        } finally {
-	            if (tx.isActive()) {
-	                tx.rollback();
-	            }
+
+	public void updateEmployee(EmployeeData employeeData) {
+		try {	
+            tx.begin();
+            log.info(resourceBundle.getString("update_employee"));
+			Employee employee = null;
+			try {
+				employee = pm.getObjectById(Employee.class, employeeData.getId());
+				pm.retrieve(employee);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				log.info(resourceBundle.getString("err_empl_not_found"));
 			}
-		} else {
-			log.info(resourceBundle.getString("err_del_empl"));
+			employee.setId(employeeData.getId());
+			employee.setName(employeeData.getName());
+			employee.setAddress(employeeData.getAddress());
+			employee.setDepartment(employeeData.getDepartment());
+			pm.makePersistent(employee);
+			tx.commit();
+			log.info(resourceBundle.getString("empl_upd_correct"));
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+		} 
+	}
+	
+	public void deleteEmployee(int id) {
+		try {	
+            tx.begin();
+            log.info(resourceBundle.getString("deleting_employee"));
+			Employee employee = null;
+			try {
+	            log.info(resourceBundle.getString("getting_employee"));
+				employee = pm.getObjectById(Employee.class, id);
+				pm.deletePersistent(employee);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				log.info(resourceBundle.getString("err_empl_not_found"));
+			}
+			tx.commit();
+            log.info(resourceBundle.getString("ok_del_empl"));
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
 		}
 	}
 	
 	public ArrayList<EmployeeData> getEmployees(){
-		WebTarget employeeWebTarget = webTarget.path("/getEmployees");
-		Invocation.Builder invocationBuilder = employeeWebTarget.request(MediaType.APPLICATION_JSON);
-		Response response = invocationBuilder.get();
-		
-		if (response.getStatus() == Status.OK.getStatusCode()) {
-			try {	 
-		        tx.begin();
-		        log.info(resourceBundle.getString("getting_employee_list"));
-				Query q = pm.newQuery("SQL", "SELECT * FROM Employee");
+		try {	 
+	        tx.begin();
+	        log.info(resourceBundle.getString("getting_employee_list"));
+			Query q = pm.newQuery("SQL", "SELECT * FROM Employee");
+			try {
 				try {
-					try {
-						List<EmployeeData> employeeList = q.executeResultList(EmployeeData.class);
-						q.close();
-						ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>(employeeList);
-						//return Response.ok(employees).build();
-						return employees;
-						
-					} catch (Exception e) {
-						System.out.println("Exception launched: " + e.getMessage());
-					}
+					List<EmployeeData> employeeList = q.executeResultList(EmployeeData.class);
+					q.close();
+					ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>(employeeList);
+					//return Response.ok(employees).build();
+					return employees;
 					
-				} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-					System.out.println("Exception launched: " + jonfe.getMessage());
-				}     
-			}
-			finally {
-	            if (tx.isActive()) {
-	                tx.rollback();
-	            }
-			}
-		} else {
-	        log.info(resourceBundle.getString("err_getting_employee_list"));
+				} catch (Exception e) {
+					System.out.println("Exception launched: " + e.getMessage());
+				}
+				
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				System.out.println("Exception launched: " + jonfe.getMessage());
+			}     
+		}
+		finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
 		}
 		return null;
 	}
@@ -195,26 +160,8 @@ public class ServerManager implements Runnable {
 		running.set(true);
 		while(running.get()) {
 			try { 
-				Thread.sleep(2000);
+				Thread.sleep(8000);
 				System.out.println("Obtaining data from server...");
-				try {
-					addEmployee();
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-				
-				try {
-					updateEmployee();
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-				
-				try {
-					deleteEmployee();
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-				
             } catch (InterruptedException e){ 
                 Thread.currentThread().interrupt();
                 System.out.println("Thread was interrupted, Failed to complete operation");
