@@ -32,151 +32,39 @@ import javax.ws.rs.client.WebTarget;
 @Produces(MediaType.APPLICATION_JSON)
 public class Server {
 
-	private int cont = 0;
-	private PersistenceManager pm=null;
-	private Transaction tx=null;
-	private Client client;
-	private WebTarget webTarget;
+	
 	// ResourceBundle class will use SystemMessages.properties file
 	private static final Logger log = Logger.getLogger("Main");
 	static ResourceBundle resourceBundle;
 	
-	public static void main(String[] args) {
-		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
-		String hostname = args[0];
-		String port = args[1];
-		Server server = new Server(hostname, port);
-		
-		log.info(resourceBundle.getString("starting_msg"));
-		
-		log.info(resourceBundle.getString("app_title"));
-		log.info(resourceBundle.getString("app_underline"));
-	}
-	
-	public Server(String hostname, String port) {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		this.pm = pmf.getPersistenceManager();
-		this.tx = pm.currentTransaction();
-		client = ClientBuilder.newClient();
-		webTarget = client.target(String.format("http://%s:%s/rest", hostname, port));
-
+	public Server() {
+	resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("en"));
 	}
 
 	@POST
 	@Path("/addEmployee")
 	public Response addEmployee(EmployeeData employeeData) {
-		resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("en"));
-		try
-        {	
-            tx.begin();
-            log.info(resourceBundle.getString("add_employee"));
-			Employee employee = null;
-			try {
-				employee = pm.getObjectById(Employee.class, employeeData.getId());
-			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-				System.out.println("Exception launched: " + jonfe.getMessage());
-			}
-			System.out.println("Employee: " + employee);
-			if (employee != null) {
-				System.err.println("The employee is already in the database");
-//				System.out.println("Setting address: " + employeeData.getAddress());
-//				employee.setAddress(employeeData.getAddress());
-//				System.out.println("Setting department: " + employeeData.getDepartment());
-//				employee.setDepartment(employeeData.getDepartment());				
-			} else {
-				System.out.println("Adding employee: " + employee);
-				employee = new Employee(employeeData.getId(), employeeData.getName(), employeeData.getAddress(), employeeData.getDepartment());
-				pm.makePersistent(employee);					 
-				System.out.println("Employee added: " + employee);
-			}
-			tx.commit();
-			return Response.ok().build();
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-		}
+		return Response.ok().build();
 	}
 	
 	@POST
 	@Path("/updateEmployee")
-	public Response updateEmployee(EmployeeData employeeData, String name, String address, String department, boolean leader) {
-		try
-        {	
-            tx.begin();
-            log.info(resourceBundle.getString("update_employee"));
-			Employee employee = null;
-			try {
-				employee = pm.getObjectById(Employee.class, employeeData.getId());
-				pm.retrieve(employee);
-			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-				System.out.println("Exception launched: " + jonfe.getMessage());
-			}
-			System.out.println("Employee: " + employee);
-			if (employee != null) {
-				System.err.println("The employee is already in the database");
-				employee = new Employee(employeeData.getId(), name, address, department);
-				pm.makePersistent(employee);
-				System.out.println("Adding employee: " + employee);
-//				System.out.println("Setting address: " + employeeData.getAddress());
-//				employee.setAddress(employeeData.getAddress());
-//				System.out.println("Setting department: " + employeeData.getDepartment());
-//				employee.setDepartment(employeeData.getDepartment());				
-			} else {
-				System.out.println("There is no employee to be updated");
-				
-			}
-			tx.commit();
-			return Response.ok().build();
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-      
-		}
+	public Response updateEmployee(EmployeeData employeeData) {
+		return Response.ok().build();
 	}
+	
 	@POST
 	@Path("/deleteEmployee")
 	public Response deleteEmployee(int id) {
-		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("es"));
-		try
-        {	
-            tx.begin();
-            log.info(resourceBundle.getString("deleting_employee"));
-			Employee employee = null;
-			try {
-				System.out.println("Retrieving employee data...");
-				employee = pm.getObjectById(Employee.class, id);
-				System.out.println("Deleting employee...");
-				pm.deletePersistent(employee);
-				System.out.println("Employee successfully deleted");
-			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-				System.out.println("Exception launched: " + jonfe.getMessage());
-			}
-			tx.commit();
-			return Response.ok().build();
-        }
-        finally
-        {
-            if (tx.isActive())
-            {
-                tx.rollback();
-            }
-      
-		}
+		return Response.ok().build();
 	}
 
+	//WIP
 	@GET
 	@Path("/getEmployees")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getEmployees() {
-		resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("eu"));
+		/**
 		try
 		{	 
 	        tx.begin();
@@ -205,6 +93,8 @@ public class Server {
                 tx.rollback();
             }
 		}
+		**/
 		return Response.ok().build();
 	}
+	
 }

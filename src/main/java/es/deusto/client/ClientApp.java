@@ -112,6 +112,7 @@ public class ClientApp {
 			}
 		}
 	}
+	
 	public void deleteEmployee(int id) {
 		WebTarget deleteEmployeeWebTarget = webTarget.path("deleteEmployee");
 		Invocation.Builder invocationBuilder = deleteEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
