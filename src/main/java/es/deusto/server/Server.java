@@ -6,6 +6,9 @@ import javax.jdo.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.Transaction;
@@ -29,19 +32,31 @@ public class Server {
 	private int cont = 0;
 	private PersistenceManager pm=null;
 	private Transaction tx=null;
-
+	// ResourceBundle class will use SystemMessages.properties file
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
+			
+	private static final Logger log = Logger.getLogger("Main");
+	
 	public Server() {
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();
 		this.tx = pm.currentTransaction();
+
+		
+		log.info(resourceBundle.getString("starting_msg"));
+		
+		log.info(resourceBundle.getString("app_title"));
+		log.info(resourceBundle.getString("app_underline"));
 	}
 
 	@POST
 	@Path("/addEmployee")
 	public Response addEmployee(EmployeeData employeeData) {
+		resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("en"));
 		try
         {	
             tx.begin();
+            log.info(resourceBundle.getString("add_employee"));
 			Employee employee = null;
 			try {
 				employee = pm.getObjectById(Employee.class, employeeData.getId());
@@ -70,16 +85,17 @@ public class Server {
             {
                 tx.rollback();
             }
-      
 		}
 	}
 	
 	@POST
 	@Path("/deleteEmployee")
 	public Response deleteEmployee(int id) {
+		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("es"));
 		try
         {	
             tx.begin();
+            log.info(resourceBundle.getString("deleting_employee"));
 			Employee employee = null;
 			try {
 				System.out.println("Retrieving employee data...");
@@ -107,9 +123,11 @@ public class Server {
 	@Path("/getEmployees")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getEmployees() {
+		resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("eu"));
 		try
 		{	 
 	        tx.begin();
+	        log.info(resourceBundle.getString("getting_employee"));
 			Query q = pm.newQuery("SQL", "SELECT * FROM Employee");
 			try {
 				System.out.println("Retrieving a list of employees...");

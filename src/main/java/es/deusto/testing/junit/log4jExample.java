@@ -2,9 +2,9 @@ package es.deusto.testing.junit;
 
 import org.apache.log4j.Logger;
 
+
 import java.io.*;
 import java.sql.SQLException;
-import java.util.*;
 
 public class log4jExample{
 	   /* Get actual class name to be printed on */
@@ -12,6 +12,7 @@ public class log4jExample{
 	   
 	   private static org.apache.log4j.Logger log2 = Logger.getLogger(log4jExample.class);
 	   
+	   @SuppressWarnings("unchecked")
 	   public static void main(String[] args)throws IOException,SQLException{
 	      log.debug("Hello this is a debug message");
 	      log.info("Hello this is an info message");
