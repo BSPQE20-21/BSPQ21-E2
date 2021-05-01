@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<content>
+
+	<employee id="01" name="Iker" address="Bilbao" department="IT"/>	
+</content>

@@ -16,6 +16,15 @@ public class EmployeeData {
 		
 	}
 	
+	public EmployeeData(int id, String name, String address, String department) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+		this.department = department;
+	}
+
+
 	public int getId() {
 		return id;
 	}
