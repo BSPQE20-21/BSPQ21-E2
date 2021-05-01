@@ -102,6 +102,46 @@ public class Server {
 	}
 	
 	@POST
+	@Path("/updateEmployee")
+	public Response updateEmployee(EmployeeData employeeData, String name, String address, String department, boolean leader) {
+		try
+        {	
+            tx.begin();
+            log.info(resourceBundle.getString("update_employee"));
+			Employee employee = null;
+			try {
+				employee = pm.getObjectById(Employee.class, employeeData.getId());
+				pm.retrieve(employee);
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				System.out.println("Exception launched: " + jonfe.getMessage());
+			}
+			System.out.println("Employee: " + employee);
+			if (employee != null) {
+				System.err.println("The employee is already in the database");
+				employee = new Employee(employeeData.getId(), name, address, department);
+				pm.makePersistent(employee);
+				System.out.println("Adding employee: " + employee);
+//				System.out.println("Setting address: " + employeeData.getAddress());
+//				employee.setAddress(employeeData.getAddress());
+//				System.out.println("Setting department: " + employeeData.getDepartment());
+//				employee.setDepartment(employeeData.getDepartment());				
+			} else {
+				System.out.println("There is no employee to be updated");
+				
+			}
+			tx.commit();
+			return Response.ok().build();
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+      
+		}
+	}
+	@POST
 	@Path("/deleteEmployee")
 	public Response deleteEmployee(int id) {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("es"));

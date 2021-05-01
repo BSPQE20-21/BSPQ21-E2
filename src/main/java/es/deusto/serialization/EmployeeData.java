@@ -10,11 +10,12 @@ public class EmployeeData {
 	private String name;
 	private String address;
 	private String department;
+	private boolean leader;
 	
 	public EmployeeData() {
 		
 	}
-
+	
 	public int getId() {
 		return id;
 	}
@@ -46,12 +47,22 @@ public class EmployeeData {
 	public void setDepartment(String department) {
 		this.department = department;
 	}
+	
+	
+	public boolean isLeader() {
+		return leader;
+	}
+
+	public void setLeader(boolean leader) {
+		this.leader = leader;
+	}
 
 	@Override
 	public String toString() {
 		return "EmployeeData [id=" + id + ", name=" + name + ", address=" + address + ", department=" + department
-				+ "]";
+				+ ", leader=" + leader + "]";
 	}
 
+	
 	
 }

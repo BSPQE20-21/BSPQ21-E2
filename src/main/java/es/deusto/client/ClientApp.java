@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 
 import es.deusto.serialization.EmployeeData;
 
@@ -90,7 +91,27 @@ public class ClientApp {
 			System.out.println("Employee correctly registered.");
 		}
 	}
-
+	public void updateUser(List<EmployeeData> employees, int id, String name, String address, String department, boolean leader ) {
+		WebTarget addEmployeeWebTarget = webTarget.path("updateEmployee");
+		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
+		if(employees.get(id) != null) {
+			EmployeeData employeeData = employees.get(id);
+			employees.remove(id);
+			employeeData.setId(id);
+			employeeData.setName(name);
+			employeeData.setAddress(address);
+			employeeData.setDepartment(department);
+			employeeData.setLeader(leader);
+			
+			Response response = invocationBuilder.post(Entity.entity(employeeData, MediaType.APPLICATION_JSON));
+			
+			if (response.getStatus() != Status.OK.getStatusCode()) {
+				System.out.println("Error connecting with the server. Code: " + response.getStatus());
+			} else {
+			System.out.println("Employee correctly registered.");
+			}
+		}
+	}
 	public void deleteEmployee(int id) {
 		WebTarget deleteEmployeeWebTarget = webTarget.path("deleteEmployee");
 		Invocation.Builder invocationBuilder = deleteEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
