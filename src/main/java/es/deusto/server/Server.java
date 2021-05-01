@@ -17,6 +17,8 @@ import es.deusto.serialization.*;
 import es.deusto.server.dto.Employee;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -24,6 +26,7 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.client.WebTarget;
 
 @Path("/server")
 @Produces(MediaType.APPLICATION_JSON)
@@ -32,21 +35,31 @@ public class Server {
 	private int cont = 0;
 	private PersistenceManager pm=null;
 	private Transaction tx=null;
+	private Client client;
+	private WebTarget webTarget;
 	// ResourceBundle class will use SystemMessages.properties file
-	ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
-			
 	private static final Logger log = Logger.getLogger("Main");
+	static ResourceBundle resourceBundle;
 	
-	public Server() {
-		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
-		this.pm = pmf.getPersistenceManager();
-		this.tx = pm.currentTransaction();
-
+	public static void main(String[] args) {
+		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
+		String hostname = args[0];
+		String port = args[1];
+		Server server = new Server(hostname, port);
 		
 		log.info(resourceBundle.getString("starting_msg"));
 		
 		log.info(resourceBundle.getString("app_title"));
 		log.info(resourceBundle.getString("app_underline"));
+	}
+	
+	public Server(String hostname, String port) {
+		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		this.pm = pmf.getPersistenceManager();
+		this.tx = pm.currentTransaction();
+		client = ClientBuilder.newClient();
+		webTarget = client.target(String.format("http://%s:%s/rest", hostname, port));
+
 	}
 
 	@POST

@@ -45,6 +45,18 @@ public class ClientApp {
 		
 	}
 	
+	public static void main(String[] args) {
+		if (args.length != 2) {
+			System.out.println("Use: java Client.Client [host] [port]");
+			System.exit(0);
+		}
+
+		String hostname = args[0];
+		String port = args[1];
+
+		ClientApp exampleClient = new ClientApp(hostname, port);
+	}
+	
 	public ClientApp(String hostname, String port) {
 		client = ClientBuilder.newClient();
 		webTarget = client.target(String.format("http://%s:%s/rest/server", hostname, port));
@@ -104,17 +116,7 @@ public class ClientApp {
 		}
 	}
 
-	public static void main(String[] args) {
-		if (args.length != 2) {
-			System.out.println("Use: java Client.Client [host] [port]");
-			System.exit(0);
-		}
 
-		String hostname = args[0];
-		String port = args[1];
-
-		ClientApp exampleClient = new ClientApp(hostname, port);
-	}
 	
 	
 	public ClientApp(int numero) {
@@ -122,12 +124,9 @@ public class ClientApp {
 			
 			initialize();
 			numero++;
-			System.out.println("Estoy aqui");
 		} else if(numero == 1) {
-			System.out.println("Ahora aqui");
 			initialize2();
 		} else {
-			System.out.println("Ahora aqui");
 			initialize3();
 		}
 		
