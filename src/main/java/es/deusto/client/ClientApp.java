@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
+import es.deusto.client.windows.ClientWindow;
 import es.deusto.serialization.EmployeeData;
 
 
@@ -34,13 +35,14 @@ public class ClientApp {
 
 	private Client client;
 	private WebTarget webTarget;
-	private ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>();
+	public static ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>();
 	private JFrame frmMenu;
 	private JFrame frmAddEmployees;
 	private JFrame frmRemoveEmployee;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	public static EmployeeData employee = new EmployeeData();
 	
 	public ClientApp() {
 		
@@ -58,7 +60,7 @@ public class ClientApp {
 		ClientApp exampleClient = new ClientApp(hostname, port);
 	}
 	
-	public ClientApp(String hostname, String port) {
+	/**public ClientApp(String hostname, String port) {
 		client = ClientBuilder.newClient();
 		webTarget = client.target(String.format("http://%s:%s/rest/server", hostname, port));
 		EventQueue.invokeLater(new Runnable() {
@@ -71,6 +73,13 @@ public class ClientApp {
 				}
 			}
 		});	 
+	}**/
+	
+	public ClientApp(String hostname, String port) {
+		client = ClientBuilder.newClient();
+		webTarget = client.target(String.format("http://%s:%s/rest/server", hostname, port));
+		
+		ClientWindow window = new ClientWindow();
 	}
 
 	public void registerUser(int id, String name, String address, String department) {
