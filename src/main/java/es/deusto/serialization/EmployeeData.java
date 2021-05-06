@@ -6,11 +6,11 @@ import javax.jdo.annotations.Join;
 import javax.jdo.annotations.Persistent;
 
 public class EmployeeData {
-	private int id;
-	private String name;
-	private String address;
-	private String department;
-	private boolean leader;
+	public int id;
+	public String name;
+	public String address;
+	public String department;
+	public boolean leader;
 	
 	public EmployeeData() {
 		

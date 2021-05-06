@@ -29,7 +29,7 @@ public class Server {
 	@POST
 	@Path("/addEmployee")
 	public Response addEmployee(EmployeeData employeeData) {
-		ServerManager.manager.addEmployee(employeeData);
+		//ServerManager.manager.addEmployee(employeeData);
 		return Response.ok().build();
 	}
 	
