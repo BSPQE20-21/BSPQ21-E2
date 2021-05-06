@@ -5,32 +5,64 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import es.deusto.serialization.*;
+import es.deusto.server.dto.Employee;
 
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Transaction;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 @Path("/server")
 @Produces(MediaType.APPLICATION_JSON)
 public class Server {
-
-	
+	private PersistenceManager pm=null;
+	private Transaction tx=null;
 	// ResourceBundle class will use SystemMessages.properties file
-	private static final Logger log = Logger.getLogger("Main");
+	private static final Logger log = Logger.getLogger(ServerManager.class.getName());
 	static ResourceBundle resourceBundle;
 	
 	public Server() {
 		resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("en"));
+		
+		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
+		this.pm = pmf.getPersistenceManager();
+		this.tx = pm.currentTransaction();
 	}
 
 	@POST
 	@Path("/addEmployee")
 	public Response addEmployee(EmployeeData employeeData) {
-		//ServerManager.manager.addEmployee(employeeData);
-		return Response.ok().build();
+		log.info("*****************");
+		
+		System.out.println(employeeData.toString());
+		try {	
+            tx.begin();
+            log.info(resourceBundle.getString("add_employee"));
+			Employee employee = null;
+			try {
+				employee = pm.getObjectById(Employee.class, employeeData.getId());
+				log.info(resourceBundle.getString("err_empl_already_in_db"));
+			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+				log.info(resourceBundle.getString("ok_empl_not_found"));
+				employee = new Employee(employeeData.getId(), employeeData.getName(), employeeData.getAddress(), employeeData.getDepartment());
+				pm.makePersistent(employee);
+				tx.commit();
+				log.info(resourceBundle.getString("empl_add_correct"));
+				return Response.ok().build();
+			}
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+		}
+		return Response.status(Status.BAD_REQUEST).entity("The employee is already in the database").build();
 	}
 	
 	@POST

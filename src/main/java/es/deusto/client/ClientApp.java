@@ -47,6 +47,7 @@ public class ClientApp {
 	}
 
 	public void registerUser(EmployeeData employeeData) {
+		System.out.println(employeeData);
 		WebTarget addEmployeeWebTarget = webTarget.path("addEmployee");
 		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
 		
