@@ -28,7 +28,7 @@ public class Server {
 	private PersistenceManager pm=null;
 	private Transaction tx=null;
 	// ResourceBundle class will use SystemMessages.properties file
-	private static final Logger log = Logger.getLogger(ServerManager.class.getName());
+	private static final Logger log = Logger.getLogger(Server.class.getName());
 	static ResourceBundle resourceBundle;
 	
 	public Server() {
