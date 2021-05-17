@@ -13,6 +13,8 @@ import org.glassfish.jersey.client.ClientResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import es.deusto.client.windows.ClientWindow;
 import es.deusto.serialization.EmployeeData;
@@ -22,6 +24,7 @@ public class ClientApp {
 
 	private Client client;
 	private WebTarget webTarget;
+	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));;
 	public static ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>();
 	public ClientApp() {
 		
@@ -42,7 +45,6 @@ public class ClientApp {
 	public ClientApp(String hostname, String port) {
 		client = ClientBuilder.newClient();
 		webTarget = client.target(String.format("http://%s:%s/rest/server", hostname, port));
-		
 		ClientWindow window = new ClientWindow(this);
 	}
 
@@ -103,7 +105,9 @@ public class ClientApp {
 			System.out.println("Error connecting with the server. Code: " + response.getStatus());
 		
 		} else {
-			employees = response.readEntity(ArrayList.class);
+			employees = response.readEntity((new ArrayList<EmployeeData>()).getClass());
+			//IDEA: hacer una clase que sea una lista de empleados y que se devuelva eso.
+			//employees = getEmployeesWebTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get((new ArrayList<EmployeeData>()).getClass());
 			//System.out.println(response.readEntity(ArrayList.class));
 			System.out.println("Employees correctly read.");
 		}

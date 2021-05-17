@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,6 +26,7 @@ public class EmployeeInfoWindow extends JFrame {
 	private JTextField tName;
 	private JTextField tAddress;
 	private JTextField tDepartment;
+	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
 	
 	public EmployeeInfoWindow(String title, EmployeeData employee) {
 		jframe = this;
@@ -39,17 +42,17 @@ public class EmployeeInfoWindow extends JFrame {
 		JPanel southPanel = new JPanel(new FlowLayout());
 		jframe.getContentPane().add(southPanel, BorderLayout.SOUTH);
 		
-		JButton bAddEmp = new JButton("Add Employee");
-		JButton bExit = new JButton("Exit");
+		JButton bAddEmp = new JButton(resourceBundle.getString("b_add_empl"));
+		JButton bExit = new JButton(resourceBundle.getString("b_quit"));
 		southPanel.add(bAddEmp);
 		southPanel.add(bExit);
 
 		JPanel centralPanel = new JPanel(new GridLayout(4, 2, 2, 0));
 		
-		JLabel lId = new JLabel("Employee ID");
-		JLabel lname = new JLabel("Employee name");
-		JLabel laddress = new JLabel("Employee address");
-		JLabel lDepartment = new JLabel("Department");
+		JLabel lId = new JLabel(resourceBundle.getString("empl_id"));
+		JLabel lname = new JLabel(resourceBundle.getString("empl_name"));
+		JLabel laddress = new JLabel(resourceBundle.getString("empl_address"));
+		JLabel lDepartment = new JLabel(resourceBundle.getString("empl_department"));
 		
 		loadInfo(employee);
 		
