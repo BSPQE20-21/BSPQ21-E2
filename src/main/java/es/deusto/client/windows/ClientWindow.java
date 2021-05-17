@@ -48,11 +48,11 @@ public class ClientWindow {
 		mainPanel.add(rmvEmp);
 		mainPanel.add(seeEmp);
 
-		JLabel manageTeamLabel = new JLabel("Manage Team");
+		JLabel manageTeamLabel = new JLabel("Manage Teams");
 		mainPanel.add(manageTeamLabel);
 		
-		JButton bttn = new JButton("WIP");
-		mainPanel.add(bttn);
+		JButton choLeader = new JButton("Choose Leader");
+		mainPanel.add(choLeader);
 		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -99,10 +99,21 @@ public class ClientWindow {
 			
 			public void actionPerformed(ActionEvent e) {
 				String sEmployee = ""; 
-				for (EmployeeData employee : ClientApp.employees) {
+				clientApp.getEmployees();
+				for (EmployeeData employee : clientApp.employees) {
 					sEmployee = sEmployee + employee.toString() + "\n";
 				}
 				JOptionPane.showMessageDialog(menuFrame, sEmployee);
+			}
+		});
+		
+		
+		choLeader.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				clientApp.getEmployees();
+				
 			}
 		});
 				

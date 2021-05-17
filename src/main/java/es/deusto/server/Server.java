@@ -1,6 +1,6 @@
 package es.deusto.server;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;  
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -129,17 +129,17 @@ public class Server {
 				System.out.println("Retrieving a list of employees...");
 				try {
 					List<EmployeeData> employeeList = q.executeResultList(EmployeeData.class);
-					q.close();
+					//q.close();
 					ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>(employeeList);
 					return Response.ok(employees).build();
-					
 				} catch (Exception e) {
-					System.out.println("Exception launched: " + e.getMessage());
+					System.out.println("Exception 1 launched: " + e.getMessage());
 				}
 				
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-				System.out.println("Exception launched: " + jonfe.getMessage());
-			}     
+				System.out.println("Exception 2 launched: " + jonfe.getMessage());
+			} 
+			tx.commit();
 		}
 		finally
 		{

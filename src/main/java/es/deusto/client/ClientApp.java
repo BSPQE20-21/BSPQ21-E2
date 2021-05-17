@@ -101,8 +101,10 @@ public class ClientApp {
 		
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			System.out.println("Error connecting with the server. Code: " + response.getStatus());
+		
 		} else {
 			employees = response.readEntity(ArrayList.class);
+			//System.out.println(response.readEntity(ArrayList.class));
 			System.out.println("Employees correctly read.");
 		}
 	}
