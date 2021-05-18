@@ -22,7 +22,7 @@ public class ClientWindow {
 	public static JFrame menuFrame;
 	public static EmployeeData employee = new EmployeeData();
 	public static ClientApp clientApp;
-	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));;
+	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
 
 	public ClientWindow(ClientApp clientApp) {
 		this.clientApp = clientApp;
@@ -82,17 +82,17 @@ public class ClientWindow {
 		
 		rmvEmp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/**EventQueue.invokeLater(new Runnable() {
+				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
 							menuFrame.setVisible(false);
-							ClientApp window3 = new ClientApp(2);				
-							window3.frmRemoveEmployee.setVisible(true);
+							//ClientApp window3 = new ClientApp(2);				
+							//window3.frmRemoveEmployee.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					}
-				});**/
+				});
 
 				
 			}
@@ -111,7 +111,7 @@ public class ClientWindow {
 		});
 		
 		
-		choLeader.addActionListener(new ActionListener() {
+		bLeader.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
