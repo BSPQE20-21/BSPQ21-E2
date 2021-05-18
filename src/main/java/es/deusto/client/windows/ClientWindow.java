@@ -85,9 +85,8 @@ public class ClientWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							menuFrame.setVisible(false);
-							//ClientApp window3 = new ClientApp(2);				
-							//window3.frmRemoveEmployee.setVisible(true);
+							menuFrame.setEnabled(false);
+							RemoveEmployee auxWindow = new RemoveEmployee(resourceBundle.getString("b_rmv_empl"), null);							
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
