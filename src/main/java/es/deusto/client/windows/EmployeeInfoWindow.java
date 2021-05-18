@@ -28,13 +28,13 @@ public class EmployeeInfoWindow extends JFrame {
 	private JTextField tDepartment;
 	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
 	
-	public EmployeeInfoWindow(String title, EmployeeData employee) {
+	public EmployeeInfoWindow(String title) {
 		jframe = this;
-		jframe.initialize(title, employee);
+		jframe.initialize(title);
 		jframe.setVisible(true);
 	}
 	
-	private void initialize(String title, EmployeeData employee) {
+	private void initialize(String title) {
 		jframe.setTitle(title);
 		jframe.setBounds(100, 100, 450, 300);
 		jframe.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -53,8 +53,6 @@ public class EmployeeInfoWindow extends JFrame {
 		JLabel lname = new JLabel(resourceBundle.getString("empl_name"));
 		JLabel laddress = new JLabel(resourceBundle.getString("empl_address"));
 		JLabel lDepartment = new JLabel(resourceBundle.getString("empl_department"));
-		
-		loadInfo(employee);
 		
 		centralPanel.add(lId);
 		centralPanel.add(tId);
@@ -98,19 +96,6 @@ public class EmployeeInfoWindow extends JFrame {
 		});
 	}
 	
-	public void loadInfo(EmployeeData employee) {
-		if(employee!=null) {
-			tId = new JTextField(employee.getId()+"");
-			tName = new JTextField(employee.getName());
-			tAddress = new JTextField(employee.getAddress());
-			tDepartment = new JTextField(employee.getDepartment());
-		} else {
-			 tId = new JTextField();
-			 tName= new JTextField();
-			 tAddress = new JTextField();
-			 tDepartment = new JTextField();
-		}
-	}
 
 	public JTextField gettId() {
 		return tId;

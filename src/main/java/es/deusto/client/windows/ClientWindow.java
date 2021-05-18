@@ -70,7 +70,7 @@ public class ClientWindow {
 					public void run() {
 						try {
 							menuFrame.setEnabled(false);
-							EmployeeInfoWindow auxWindow = new EmployeeInfoWindow(resourceBundle.getString("b_add_empl"), null);							
+							EmployeeInfoWindow auxWindow = new EmployeeInfoWindow(resourceBundle.getString("b_add_empl"));							
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
