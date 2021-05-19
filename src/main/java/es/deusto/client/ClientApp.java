@@ -16,16 +16,19 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import es.deusto.client.windows.ClientWindow;
 import es.deusto.serialization.EmployeeData;
 import es.deusto.serialization.EmployeeList;
+import es.deusto.server.Server;
 
 
 public class ClientApp {
 
 	private Client client;
 	private WebTarget webTarget;
+	private static final Logger log = Logger.getLogger(ClientApp.class.getName());
 	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));;
 	public ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>();
 	public ClientApp() {
@@ -51,16 +54,15 @@ public class ClientApp {
 	}
 
 	public void registerEmployee(EmployeeData employeeData) {
-		System.out.println(employeeData);
 		WebTarget addEmployeeWebTarget = webTarget.path("addEmployee");
 		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
 		
 		Response response = invocationBuilder.post(Entity.entity(employeeData, MediaType.APPLICATION_JSON));
 		
 		if (response.getStatus() != Status.OK.getStatusCode()) {
-			System.out.println("Error connecting with the server. Code: " + response.getStatus());
+			log.info(resourceBundle.getString("server_connection_error")+response.getStatus());
 		} else {
-			System.out.println("Employee correctly registered.");
+			log.info(resourceBundle.getString("err_add_empl"));
 		}
 	}
 	
@@ -79,12 +81,13 @@ public class ClientApp {
 			Response response = invocationBuilder.post(Entity.entity(employeeData, MediaType.APPLICATION_JSON));
 			
 			if (response.getStatus() != Status.OK.getStatusCode()) {
-				System.out.println("Error connecting with the server. Code: " + response.getStatus());
+				log.info(resourceBundle.getString("server_connection_error")+response.getStatus());
 			} else {
-			System.out.println("Employee correctly updated.");
+				log.info(resourceBundle.getString("err_upd_empl"));
 			}
+			
 		} else {
-			System.err.println("ERROR: The employee does not exist.");
+			log.info(resourceBundle.getString("err_upd_empl"));
 		}
 	}
 	
@@ -98,9 +101,9 @@ public class ClientApp {
 		Response response = invocationBuilder.post(Entity.entity(employeeList, MediaType.APPLICATION_JSON));
 		
 		if (response.getStatus() != Status.OK.getStatusCode()) {
-			System.out.println("Error connecting with the server. Code: " + response.getStatus());
+			log.info(resourceBundle.getString("server_connection_error")+response.getStatus());
 		} else {
-		System.out.println("Employees correctly updated.");
+			log.info(resourceBundle.getString("err_upd_empls"));
 		}
 	}
 	
@@ -110,9 +113,9 @@ public class ClientApp {
 
 		Response response = invocationBuilder.post(Entity.entity(id, MediaType.APPLICATION_JSON));
 		if (response.getStatus() != Status.OK.getStatusCode()) {
-			System.out.println("Error connecting with the server. Code: " + response.getStatus());
+			log.info(resourceBundle.getString("server_connection_error")+response.getStatus());
 		} else {
-			System.out.println("Employee correctly deleted.");
+			log.info(resourceBundle.getString("err_del_empl"));
 		}
 	}
 	
@@ -122,14 +125,13 @@ public class ClientApp {
 		Response response = invocationBuilder.get();
 		
 		if (response.getStatus() != Status.OK.getStatusCode()) {
-			System.out.println("Error connecting with the server. Code: " + response.getStatus());
+			log.info(resourceBundle.getString("server_connection_error")+response.getStatus());
 		
 		} else {
 			EmployeeList employeeList = response.readEntity(EmployeeList.class);
 			employees = new ArrayList<EmployeeData>(employeeList.getEmployees());
-			//employees = getEmployeesWebTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get((new ArrayList<EmployeeData>()).getClass());
-			//System.out.println(response.readEntity(ArrayList.class));
-			System.out.println("Employees correctly read.");
+
+			log.info(resourceBundle.getString("ok_get_empl"));
 		}
 	}
 	

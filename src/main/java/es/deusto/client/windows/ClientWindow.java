@@ -130,9 +130,7 @@ public class ClientWindow {
 				
 			}
 		});
-				
-				
-		
+
 		menuFrame.setVisible(true);
 	}
 }

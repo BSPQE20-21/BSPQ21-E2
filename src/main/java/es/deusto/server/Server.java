@@ -166,11 +166,11 @@ public class Server {
 					employees.setEmployees(employeeSet);
 					return Response.ok().entity(employees).build();
 				} catch (Exception e) {
-					System.out.println("Exception 1 launched: " + e.getMessage());
+					log.info(resourceBundle.getString("exception")+e.getMessage());
 				}
 				
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
-				System.out.println("Exception 2 launched: " + jonfe.getMessage());
+				log.info(resourceBundle.getString("exception")+jonfe.getMessage());
 			} 
 			tx.commit();
 		}
