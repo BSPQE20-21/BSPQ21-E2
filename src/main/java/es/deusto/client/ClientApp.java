@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 
 import es.deusto.client.windows.ClientWindow;
 import es.deusto.serialization.EmployeeData;
+import es.deusto.serialization.EmployeeList;
 
 
 public class ClientApp {
@@ -105,8 +106,8 @@ public class ClientApp {
 			System.out.println("Error connecting with the server. Code: " + response.getStatus());
 		
 		} else {
-			employees = response.readEntity((new ArrayList<EmployeeData>()).getClass());
-			//IDEA: hacer una clase que sea una lista de empleados y que se devuelva eso.
+			EmployeeList employeeList = response.readEntity(EmployeeList.class);
+			employees = new ArrayList<EmployeeData>(employeeList.getEmployees());
 			//employees = getEmployeesWebTarget.request(javax.ws.rs.core.MediaType.APPLICATION_JSON).get((new ArrayList<EmployeeData>()).getClass());
 			//System.out.println(response.readEntity(ArrayList.class));
 			System.out.println("Employees correctly read.");

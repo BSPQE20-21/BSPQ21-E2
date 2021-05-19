@@ -1,9 +1,6 @@
 package es.deusto.server;
 
-import java.util.ArrayList;  
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.logging.Logger;
 
 import es.deusto.serialization.*;
@@ -130,8 +127,10 @@ public class Server {
 				try {
 					List<EmployeeData> employeeList = q.executeResultList(EmployeeData.class);
 					//q.close();
-					ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>(employeeList);
-					return Response.ok(employees).build();
+					EmployeeList employees = new EmployeeList();
+					Set<EmployeeData> employeeSet = new HashSet<>(employeeList);
+					employees.setEmployees(employeeSet);
+					return Response.ok().entity(employees).build();
 				} catch (Exception e) {
 					System.out.println("Exception 1 launched: " + e.getMessage());
 				}
