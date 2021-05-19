@@ -6,11 +6,11 @@ public class EmployeeList {
 
 	private Set<EmployeeData> employees;
 	
-	public void EmployeeList() {
+	public EmployeeList() {
 		employees = new HashSet<>();
 	}
 	
-	public void EmployeeList(Set<EmployeeData> employees) {
+	public EmployeeList(Set<EmployeeData> employees) {
 		this.employees = employees;
 	}
 

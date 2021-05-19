@@ -26,7 +26,7 @@ public class ClientApp {
 	private Client client;
 	private WebTarget webTarget;
 	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));;
-	public static ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>();
+	public ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>();
 	public ClientApp() {
 		
 	}

@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -115,6 +116,17 @@ public class ClientWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				clientApp.getEmployees();
+				
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							menuFrame.setEnabled(false);
+							ChooseLeaderWindow auxWindow = new ChooseLeaderWindow(resourceBundle.getString("b_leader"),clientApp.employees);							
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 				
 			}
 		});
