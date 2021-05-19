@@ -1,10 +1,5 @@
 package es.deusto.serialization;
 
-import javax.jdo.annotations.PersistenceCapable;
-import javax.jdo.annotations.PrimaryKey;
-import javax.jdo.annotations.Join;
-import javax.jdo.annotations.Persistent;
-
 public class EmployeeData {
 	public int id;
 	public String name;

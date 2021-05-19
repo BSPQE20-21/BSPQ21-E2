@@ -91,6 +91,41 @@ public class Server {
 	}
 	
 	@POST
+	@Path("/updateEmployees")
+	public Response updateEmployees(EmployeeList employeeList) {
+		ArrayList<EmployeeData> employees = new ArrayList<>(employeeList.getEmployees());
+		
+		try {	
+            tx.begin();
+            log.info(resourceBundle.getString("update_employees"));
+			Employee employee = null;
+			
+			for (EmployeeData employeeData : employees) {
+				try {
+					employee = pm.getObjectById(Employee.class, employeeData.getId());
+					pm.retrieve(employee);
+				} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
+					log.info(resourceBundle.getString("err_empl_not_found"));
+				}
+				employee.setId(employeeData.getId());
+				employee.setName(employeeData.getName());
+				employee.setAddress(employeeData.getAddress());
+				employee.setLeader(employeeData.isLeader());
+				employee.setDepartment(employeeData.getDepartment());
+				pm.makePersistent(employee);
+			}
+			
+			tx.commit();
+			log.info(resourceBundle.getString("empls_upd_correct"));
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+		} 
+		return Response.ok().build();
+	}
+	
+	@POST
 	@Path("/deleteEmployee")
 	public Response deleteEmployee(int id) {
 		try {	
@@ -123,7 +158,6 @@ public class Server {
 	        log.info(resourceBundle.getString("getting_employee"));
 			Query q = pm.newQuery("SQL", "SELECT * FROM Employee");
 			try {
-				System.out.println("Retrieving a list of employees...");
 				try {
 					List<EmployeeData> employeeList = q.executeResultList(EmployeeData.class);
 					//q.close();

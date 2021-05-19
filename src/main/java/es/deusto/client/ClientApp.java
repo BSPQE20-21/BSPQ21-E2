@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response.Status;
 import org.glassfish.jersey.client.ClientResponse;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -80,8 +81,26 @@ public class ClientApp {
 			if (response.getStatus() != Status.OK.getStatusCode()) {
 				System.out.println("Error connecting with the server. Code: " + response.getStatus());
 			} else {
-			System.out.println("Employee correctly registered.");
+			System.out.println("Employee correctly updated.");
 			}
+		} else {
+			System.err.println("ERROR: The employee does not exist.");
+		}
+	}
+	
+	public void updateEmployees(List<EmployeeData> employees) {
+		WebTarget addEmployeeWebTarget = webTarget.path("updateEmployees");
+		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
+		
+		EmployeeList employeeList = new EmployeeList();
+		employeeList.setEmployees(new HashSet(employees));
+		
+		Response response = invocationBuilder.post(Entity.entity(employeeList, MediaType.APPLICATION_JSON));
+		
+		if (response.getStatus() != Status.OK.getStatusCode()) {
+			System.out.println("Error connecting with the server. Code: " + response.getStatus());
+		} else {
+		System.out.println("Employees correctly updated.");
 		}
 	}
 	
