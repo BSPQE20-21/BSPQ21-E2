@@ -34,8 +34,8 @@ public class ClientWindow {
 		menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menuFrame.getContentPane().setLayout(new BorderLayout());
 		
-		JButton btnNewButton = new JButton(resourceBundle.getString("b_quit"));
-		menuFrame.getContentPane().add(btnNewButton, BorderLayout.SOUTH);
+		JButton btnClose = new JButton(resourceBundle.getString("b_quit"));
+		menuFrame.getContentPane().add(btnClose, BorderLayout.SOUTH);
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new GridLayout(0, 1, 0, 0));
@@ -58,7 +58,7 @@ public class ClientWindow {
 		JButton bLeader = new JButton(resourceBundle.getString("b_leader"));
 		mainPanel.add(bLeader);
 		
-		btnNewButton.addActionListener(new ActionListener() {
+		btnClose.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				menuFrame.dispose();
 			}

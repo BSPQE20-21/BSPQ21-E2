@@ -49,7 +49,7 @@ public class ClientApp {
 		ClientWindow window = new ClientWindow(this);
 	}
 
-	public void registerUser(EmployeeData employeeData) {
+	public void registerEmployee(EmployeeData employeeData) {
 		System.out.println(employeeData);
 		WebTarget addEmployeeWebTarget = webTarget.path("addEmployee");
 		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
@@ -63,7 +63,7 @@ public class ClientApp {
 		}
 	}
 	
-	public void updateUser(List<EmployeeData> employees, int id, String name, String address, String department, boolean leader ) {
+	public void updateEmployee(List<EmployeeData> employees, int id, String name, String address, String department, boolean leader ) {
 		WebTarget addEmployeeWebTarget = webTarget.path("updateEmployee");
 		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
 		if(employees.get(id) != null) {

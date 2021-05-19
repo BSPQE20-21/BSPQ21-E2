@@ -83,7 +83,7 @@ public class EmployeeInfoWindow extends JFrame {
 				ClientWindow.employee.setAddress(tAddress.getText());
 				ClientWindow.employee.setDepartment(tDepartment.getText());
 				ClientWindow.menuFrame.setEnabled(true);
-				ClientWindow.clientApp.registerUser(ClientWindow.employee);
+				ClientWindow.clientApp.registerEmployee(ClientWindow.employee);
 				jframe.dispose();
 			}
 		});
