@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['clientapp_182',['clientApp',['../classes_1_1deusto_1_1client_1_1windows_1_1_client_window.html#adebeec53f3462b4d37de42cda09033a5',1,'es::deusto::client::windows::ClientWindow']]]
+  ['address_192',['address',['../classes_1_1deusto_1_1serialization_1_1_employee_data.html#a30b5138aa2b8348db08954a541f09cb1',1,'es::deusto::serialization::EmployeeData']]]
 ];
