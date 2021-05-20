@@ -78,7 +78,9 @@ public class RemoveEmployee extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int optionDelete = comboBox.getSelectedIndex();
-				employees.remove(optionDelete);				
+				//employees.remove(optionDelete);
+				
+				ClientWindow.clientApp.deleteEmployee(optionDelete);
 				
 				
 				ClientWindow.menuFrame.setEnabled(true);	
