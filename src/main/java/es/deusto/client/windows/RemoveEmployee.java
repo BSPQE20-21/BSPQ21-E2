@@ -59,8 +59,7 @@ public class RemoveEmployee extends JFrame{
 		
 		JComboBox<String> comboBox = new JComboBox<String>();
 		for (EmployeeData employee : employees) {
-			System.out.println(employee.getName());
-			comboBox.addItem(employee.getName());
+			comboBox.addItem(employee.toString());
 		}
 		centralPanel.add(comboBox);
 
@@ -78,11 +77,9 @@ public class RemoveEmployee extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int optionDelete = comboBox.getSelectedIndex();
-				//employees.remove(optionDelete);
 				
-				ClientWindow.clientApp.deleteEmployee(optionDelete);
-				
-				
+				ClientWindow.clientApp.deleteEmployee(employees.get(optionDelete).getId());
+					
 				ClientWindow.menuFrame.setEnabled(true);	
 				jframe.dispose();
 			}
