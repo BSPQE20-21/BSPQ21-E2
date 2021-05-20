@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['employee_183',['employee',['../classes_1_1deusto_1_1client_1_1windows_1_1_client_window.html#aa09b06d16e363f523fad14639ff0fe60',1,'es::deusto::client::windows::ClientWindow']]],
-  ['employees_184',['employees',['../classes_1_1deusto_1_1client_1_1_client_app.html#abc32a61afc4e7ce3445edd8a105a0c58',1,'es::deusto::client::ClientApp']]]
+  ['clientapp_193',['clientApp',['../classes_1_1deusto_1_1client_1_1windows_1_1_client_window.html#adebeec53f3462b4d37de42cda09033a5',1,'es::deusto::client::windows::ClientWindow']]]
 ];

@@ -1,15 +1,11 @@
 var searchData=
 [
-  ['clientapp_3',['ClientApp',['../classes_1_1deusto_1_1client_1_1_client_app.html#aca77526716e8e3c7d96764a4f0ee002b',1,'es.deusto.client.ClientApp.ClientApp()'],['../classes_1_1deusto_1_1client_1_1_client_app.html#aa010547c61d7540616fbdb715762ab71',1,'es.deusto.client.ClientApp.ClientApp(String hostname, String port)']]],
-  ['clientapp_4',['clientApp',['../classes_1_1deusto_1_1client_1_1windows_1_1_client_window.html#adebeec53f3462b4d37de42cda09033a5',1,'es::deusto::client::windows::ClientWindow']]],
-  ['clientapp_5',['ClientApp',['../classes_1_1deusto_1_1client_1_1_client_app.html',1,'es::deusto::client']]],
-  ['clientapp_2ejava_6',['ClientApp.java',['../_client_app_8java.html',1,'']]],
-  ['clientapptest_7',['ClientAppTest',['../classes_1_1deusto_1_1client_1_1_client_app_test.html',1,'es::deusto::client']]],
-  ['clientapptest_2ejava_8',['ClientAppTest.java',['../_client_app_test_8java.html',1,'']]],
-  ['clientwindow_9',['ClientWindow',['../classes_1_1deusto_1_1client_1_1windows_1_1_client_window.html#a0cb8f374d0ea52e989ea290b2b8c13ad',1,'es.deusto.client.windows.ClientWindow.ClientWindow()'],['../classes_1_1deusto_1_1client_1_1windows_1_1_client_window.html',1,'es.deusto.client.windows.ClientWindow']]],
-  ['clientwindow_2ejava_10',['ClientWindow.java',['../_client_window_8java.html',1,'']]],
-  ['contiperfsimple_11',['ContiperfSimple',['../classes_1_1deusto_1_1testing_1_1junit_1_1_contiperf_simple.html',1,'es::deusto::testing::junit']]],
-  ['contiperfsimple_2ejava_12',['ContiperfSimple.java',['../_contiperf_simple_8java.html',1,'']]],
-  ['createnewdbconnection_13',['createNewDBconnection',['../classes_1_1deusto_1_1server_1_1db_1_1_d_b_manager.html#abea9892a98ba6a0de4835bb4460913b3',1,'es::deusto::server::db::DBManager']]],
-  ['createparser_14',['createParser',['../classes_1_1deusto_1_1profiling_1_1_employee_profiling.html#aacac69ba405ef59d0c0ff1ec73b3a816',1,'es::deusto::profiling::EmployeeProfiling']]]
+  ['dbmanager_16',['DBManager',['../classes_1_1deusto_1_1server_1_1db_1_1_d_b_manager.html',1,'es::deusto::server::db']]],
+  ['dbmanager_2ejava_17',['DBManager.java',['../_d_b_manager_8java.html',1,'']]],
+  ['dbtest_18',['DBTest',['../classes_1_1deusto_1_1server_1_1db_1_1_d_b_test.html',1,'es::deusto::server::db']]],
+  ['dbtest_2ejava_19',['DBTest.java',['../_d_b_test_8java.html',1,'']]],
+  ['deleteemployee_20',['deleteEmployee',['../classes_1_1deusto_1_1client_1_1_client_app.html#ae4154ca4393776c16eb890250cf6949a',1,'es.deusto.client.ClientApp.deleteEmployee()'],['../classes_1_1deusto_1_1server_1_1_server.html#accb2f3b1cf126fef3f51a590a29b10a4',1,'es.deusto.server.Server.deleteEmployee()']]],
+  ['departcombo_21',['departCombo',['../classes_1_1deusto_1_1client_1_1windows_1_1_choose_leader_window.html#a3a47eb276532149d9dbb809e38fb2436',1,'es::deusto::client::windows::ChooseLeaderWindow']]],
+  ['department_22',['department',['../classes_1_1deusto_1_1serialization_1_1_employee_data.html#a5fc513d7d5f29d8576a3ea75e4baad7d',1,'es::deusto::serialization::EmployeeData']]],
+  ['departmentmap_23',['departmentMap',['../classes_1_1deusto_1_1client_1_1windows_1_1_choose_leader_window.html#a7989d4d35525662e658cba85b362e02c',1,'es::deusto::client::windows::ChooseLeaderWindow']]]
 ];

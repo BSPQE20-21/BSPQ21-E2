@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['jframe_59',['jframe',['../classes_1_1deusto_1_1client_1_1windows_1_1_employee_info_window.html#ae88bb7a72b5bf4e3576e9ee50b68a0ff',1,'es::deusto::client::windows::EmployeeInfoWindow']]]
+  ['leader_67',['leader',['../classes_1_1deusto_1_1serialization_1_1_employee_data.html#a00e9f1b719391011ec7af424d44cd125',1,'es::deusto::serialization::EmployeeData']]],
+  ['log4jexample_68',['log4jExample',['../classes_1_1deusto_1_1testing_1_1junit_1_1log4j_example.html',1,'es::deusto::testing::junit']]],
+  ['log4jexample_2ejava_69',['log4jExample.java',['../log4j_example_8java.html',1,'']]]
 ];
