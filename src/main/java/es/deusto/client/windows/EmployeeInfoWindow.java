@@ -28,12 +28,20 @@ public class EmployeeInfoWindow extends JFrame {
 	private JTextField tDepartment = new JTextField("");
 	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
 	
+	/**
+	 * Window that handles the add employee functionality.
+	 * @param title The name of the window.
+	 */
 	public EmployeeInfoWindow(String title) {
 		jframe = this;
 		jframe.initialize(title);
 		jframe.setVisible(true);
 	}
 	
+	/**
+	 * Initializes the contents of the EmployeeInfoWindow
+	 * @param title The name of the window.
+	 */
 	private void initialize(String title) {
 		jframe.setTitle(title);
 		jframe.setBounds(100, 100, 450, 300);
@@ -53,6 +61,11 @@ public class EmployeeInfoWindow extends JFrame {
 		JLabel lname = new JLabel(resourceBundle.getString("empl_name"));
 		JLabel laddress = new JLabel(resourceBundle.getString("empl_address"));
 		JLabel lDepartment = new JLabel(resourceBundle.getString("empl_department"));
+		
+		tId = new JTextField("");
+		tName = new JTextField("");
+		tAddress = new JTextField("");
+		tDepartment = new JTextField("");
 		
 		centralPanel.add(lId);
 		centralPanel.add(tId);

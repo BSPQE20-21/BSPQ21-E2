@@ -32,7 +32,12 @@ public class ChooseLeaderWindow extends JFrame{
 	public HashMap<String, ArrayList<EmployeeData>> departmentMap;
 	private static final Logger log = Logger.getLogger(ChooseLeaderWindow.class.getName());
 	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
-
+	
+	/**
+	 * Window that handles the choose leader functionality.
+	 * @param title The name of the window.
+	 * @param employees A list of all the employees.
+	 */
 	public ChooseLeaderWindow(String title, ArrayList<EmployeeData> employees) {
 		jframe = this;
 		jframe.employees = employees;
@@ -41,6 +46,10 @@ public class ChooseLeaderWindow extends JFrame{
 		jframe.setVisible(true);
 	}
 	
+	/**
+	 * Initializes all the contents of the ChooseLeaderWindow
+	 * @param title The name of the window.
+	 */
 	private void initialize(String title) {
 		log.info(resourceBundle.getString("ch_leader_w_init"));
 		jframe.setTitle(title);

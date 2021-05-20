@@ -24,7 +24,11 @@ public class ClientWindow {
 	public static EmployeeData employee = new EmployeeData();
 	public static ClientApp clientApp;
 	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
-
+	
+	/**
+	 * Constructor of the ClientWindow class. Is the window used to access the app's functionalities.
+	 * @param clientApp Handles the server connectivity.
+	 */
 	public ClientWindow(ClientApp clientApp) {
 		this.clientApp = clientApp;
 		

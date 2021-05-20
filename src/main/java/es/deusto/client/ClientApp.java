@@ -31,10 +31,7 @@ public class ClientApp {
 	private static final Logger log = Logger.getLogger(ClientApp.class.getName());
 	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));;
 	public ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>();
-	public ClientApp() {
-		
-	}
-	
+
 	public static void main(String[] args) {
 		if (args.length != 2) {
 			System.out.println("Use: java Client.Client [host] [port]");
@@ -47,12 +44,21 @@ public class ClientApp {
 		ClientApp client = new ClientApp(hostname, port);
 	}
 	
+	/**
+	 * Class that handles the connectivity requests with the server
+	 * @param hostname
+	 * @param port
+	 */
 	public ClientApp(String hostname, String port) {
 		client = ClientBuilder.newClient();
 		webTarget = client.target(String.format("http://%s:%s/rest/server", hostname, port));
 		ClientWindow window = new ClientWindow(this);
 	}
 
+	/**
+	 * Registers a single employee by sending it to the server. 
+	 * @param employeeData Info of the new employee.
+	 */
 	public void registerEmployee(EmployeeData employeeData) {
 		WebTarget addEmployeeWebTarget = webTarget.path("addEmployee");
 		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
@@ -66,6 +72,15 @@ public class ClientApp {
 		}
 	}
 	
+	/**
+	 * Updates a single employee by sending the info to the server. All the attributes of the employee will be updated.
+	 * @param employees List of the current loaded employees.
+	 * @param id New id.
+	 * @param name New name.
+	 * @param address New address.
+	 * @param department New department.
+	 * @param leader New leader.
+	 */
 	public void updateEmployee(List<EmployeeData> employees, int id, String name, String address, String department, boolean leader ) {
 		WebTarget addEmployeeWebTarget = webTarget.path("updateEmployee");
 		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
@@ -91,6 +106,10 @@ public class ClientApp {
 		}
 	}
 	
+	/**
+	 * Updates all the employees passed.
+	 * @param employees List of employees to be updated.
+	 */
 	public void updateEmployees(List<EmployeeData> employees) {
 		WebTarget addEmployeeWebTarget = webTarget.path("updateEmployees");
 		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
@@ -107,6 +126,10 @@ public class ClientApp {
 		}
 	}
 	
+	/**
+	 * Deletes an employee from the server's database.
+	 * @param id Id of the employee to be deleted.
+	 */
 	public void deleteEmployee(int id) {
 		WebTarget deleteEmployeeWebTarget = webTarget.path("deleteEmployee");
 		Invocation.Builder invocationBuilder = deleteEmployeeWebTarget.request(MediaType.APPLICATION_JSON);
@@ -119,6 +142,9 @@ public class ClientApp {
 		}
 	}
 	
+	/**
+	 * Loads all the employees from the database into the ClientApp.employee parameter.
+	 */
 	public void getEmployees(){
 		WebTarget getEmployeesWebTarget = webTarget.path("/getEmployees");
 		Invocation.Builder invocationBuilder = getEmployeesWebTarget.request(MediaType.APPLICATION_JSON);
