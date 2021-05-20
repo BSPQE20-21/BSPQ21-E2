@@ -11,6 +11,7 @@ import java.awt.event.WindowListener;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,10 +23,14 @@ import javax.swing.JTextField;
 import es.deusto.serialization.EmployeeData;
 
 
+
+
 public class RemoveEmployee extends JFrame{
 	
 	public RemoveEmployee jframe;
 	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
+	private static final Logger log = Logger.getLogger(RemoveEmployee.class.getName());
+	
 	
 	public RemoveEmployee(String title, ArrayList<EmployeeData> employees) {
 		jframe = this;
@@ -34,6 +39,7 @@ public class RemoveEmployee extends JFrame{
 	}
 	
 	private void initialize(String title, ArrayList<EmployeeData> employees) {
+		//log.info(resourceBundle.getString("ch_leader_w_init"));
 		jframe.setTitle(title);
 		jframe.setBounds(100, 100, 450, 300);
 		jframe.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -50,7 +56,12 @@ public class RemoveEmployee extends JFrame{
 		jframe.getContentPane().add(centralPanel, BorderLayout.CENTER);
 		
 		
+		
 		JComboBox<String> comboBox = new JComboBox<String>();
+		for (EmployeeData employee : employees) {
+			System.out.println(employee.getName());
+			comboBox.addItem(employee.getName());
+		}
 		centralPanel.add(comboBox);
 
 		bExit.addActionListener(new ActionListener() {
@@ -66,20 +77,9 @@ public class RemoveEmployee extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String optionDelete = comboBox.getSelectedItem().toString();
-				int num = 0;
-				int defNum = -1;
-
-				for (EmployeeData employee : employees) {
-					if(employee.getName().equals(optionDelete)) {
-						defNum = num;
-					}
-					num =+ 1;
-				}
-
-				if(defNum >=0) {
-					employees.remove(defNum);				
-				}
+				int optionDelete = comboBox.getSelectedIndex();
+				employees.remove(optionDelete);				
+				
 				
 				ClientWindow.menuFrame.setEnabled(true);	
 				jframe.dispose();

@@ -86,8 +86,9 @@ public class ClientWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							clientApp.getEmployees();
 							menuFrame.setEnabled(false);
-							RemoveEmployee auxWindow = new RemoveEmployee(resourceBundle.getString("b_rmv_empl"), null);							
+							RemoveEmployee auxWindow = new RemoveEmployee(resourceBundle.getString("b_rmv_empl"), clientApp.employees);							
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

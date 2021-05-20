@@ -21,7 +21,7 @@ public class ClientAppTest {
 		employee.setAddress("testAddres");
 		employee.setDepartment("testDepart");
 		
-		employeeWindow = new EmployeeInfoWindow("test2", employee);
+		//employeeWindow = new EmployeeInfoWindow("test2", employee);
 
 	}
 
