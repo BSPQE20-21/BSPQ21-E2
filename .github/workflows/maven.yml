@@ -24,7 +24,7 @@ jobs:
       with:
         mysql-version: '8.0'
     - name: create database in mysql-server
-      run: mysql -uroot -h127.0.0.1 < src/main/java/es.deusto.server.db/create-BSPQ21-E2db.sql  
+      run: mysql -uroot -h127.0.0.1 < src/main/java/es/deusto/server/db/create-BSPQ21-E2db.sql  
     - name: Launch the server in background mode 
       run: mvn jetty:run &
     - name: compile the code
