@@ -22,10 +22,10 @@ import es.deusto.serialization.EmployeeData;
 public class EmployeeInfoWindow extends JFrame {
 	
 	public EmployeeInfoWindow jframe;
-	private JTextField tId;
-	private JTextField tName;
-	private JTextField tAddress;
-	private JTextField tDepartment;
+	private JTextField tId = new JTextField("");
+	private JTextField tName = new JTextField("");
+	private JTextField tAddress = new JTextField("");
+	private JTextField tDepartment = new JTextField("");
 	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
 	
 	public EmployeeInfoWindow(String title) {
