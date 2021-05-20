@@ -39,7 +39,7 @@ public class RemoveEmployee extends JFrame{
 	}
 	
 	private void initialize(String title, ArrayList<EmployeeData> employees) {
-		//log.info(resourceBundle.getString("ch_leader_w_init"));
+		log.info(resourceBundle.getString("rmv_employee_w_init"));
 		jframe.setTitle(title);
 		jframe.setBounds(100, 100, 450, 300);
 		jframe.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -76,10 +76,12 @@ public class RemoveEmployee extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int optionDelete = comboBox.getSelectedIndex();
 				
+				int optionDelete = comboBox.getSelectedIndex();
+				log.info(resourceBundle.getString("chosen_employee_rmv")+" "+ employees.get(optionDelete).getId() + ", " + employees.get(optionDelete).getName());
+
 				ClientWindow.clientApp.deleteEmployee(employees.get(optionDelete).getId());
-					
+				
 				ClientWindow.menuFrame.setEnabled(true);	
 				jframe.dispose();
 			}
