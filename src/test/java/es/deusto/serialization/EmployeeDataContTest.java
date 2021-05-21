@@ -49,7 +49,7 @@ public class EmployeeDataContTest {
 	 
 	 @Test
 	 @PerfTest(invocations = 100, threads = 2)
-	 @Required(max = 200, average = 100)
+	 @Required(max = 100, average = 100)
 	 public void getDepartment() throws Exception {
 	 expected = new EmployeeData(01, "Iker", "Bilbao", "IT"); 
 	 assertEquals(expected.getDepartment(), e1.getDepartment());
