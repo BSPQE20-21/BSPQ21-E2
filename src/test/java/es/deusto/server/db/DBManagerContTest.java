@@ -14,10 +14,7 @@ import org.junit.Test;
 
 public class DBManagerContTest {
 	
-	private static String dbhost = "jdbc:mysql://localhost/BSPQ21E2?verifyServerCertificate=false&useSSL=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	private static String username = "sd";
-	private static String password = "sd";
-	private static Connection conn;
+	private DBManager manager = new DBManager();
 
 	@Rule
 	public ContiPerfRule i = new ContiPerfRule();
@@ -25,12 +22,12 @@ public class DBManagerContTest {
 //	Add more tests when DBManager is completed
 	
 	@Test
-	@PerfTest(invocations = 100, threads = 2)
-	@Required(max = 200, average = 100)
+	@PerfTest(invocations = 100, threads = 5)
+	@Required(max = 5000, average = 3000)
 	public void createNewDBconnection() throws Exception{
 		
-		conn = DriverManager.getConnection(dbhost, username, password);	
+		Connection conn = manager.createNewDBconnection();	
 		
-		assertTrue(conn != null);;
+		assertTrue(conn != null);
 	}
 }
