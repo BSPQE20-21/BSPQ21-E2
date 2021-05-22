@@ -29,8 +29,8 @@ jobs:
       run:  mvn jetty:run &
     - name: compile the code
       run: mvn clean compile
-    
-    
+    - name: Test with Maven
+      run: mvn test -DargLine="-Dcontiperf.active=false"
     - name: Install doxygen
       run: sudo apt-get install -y doxygen
     - name: Install graphviz
