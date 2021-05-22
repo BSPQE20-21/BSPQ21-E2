@@ -151,4 +151,5 @@ public class ChooseLeaderWindow extends JFrame{
 		}
 	}
 	
+	
 }
