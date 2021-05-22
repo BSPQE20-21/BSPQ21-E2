@@ -7,8 +7,8 @@ import java.sql.SQLException;
 public class DBManager {
 	
 	private static String dbhost = "jdbc:mysql://localhost/BSPQ21E2?verifyServerCertificate=false&useSSL=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	private static String username = "sd";
-	private static String password = "sd";
+	private static String username = "spq";
+	private static String password = "spq";
 	private static Connection conn;
 	
 	@SuppressWarnings("finally")
