@@ -31,7 +31,7 @@ jobs:
       run: mvn clean compile
     - name: Launch the client
       run: |
-        export DISPLAY=:0.0
+        export DISPLAY=:0
         mvn exec:java -Pclient
     
     - name: Test with Maven
