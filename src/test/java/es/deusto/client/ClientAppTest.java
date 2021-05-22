@@ -21,9 +21,20 @@ public class ClientAppTest {
 
 	}
 
+<<<<<<< HEAD
 	@Test
 	public void prueba() {
 
 	}
+=======
+//	@Test
+//	public void prueba() {
+//		assertEquals(Integer.parseInt(employeeWindow.gettId().getText()), employee.getId());
+//		assertEquals(employeeWindow.gettName().getText(), employee.getName());
+//		assertEquals(employeeWindow.gettAddress().getText(), employee.getAddress());
+//		assertEquals(employeeWindow.gettDepartment().getText(), employee.getDepartment());
+//
+//	}
+>>>>>>> 5aefa49b8dd7432e2d3874479747db8859e31187
 	
 }
