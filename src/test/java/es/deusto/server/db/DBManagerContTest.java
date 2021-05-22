@@ -14,8 +14,6 @@ import org.junit.Test;
 
 public class DBManagerContTest {
 	
-	private DBManager manager = new DBManager();
-
 	@Rule
 	public ContiPerfRule i = new ContiPerfRule();
 	
@@ -26,7 +24,7 @@ public class DBManagerContTest {
 	@Required(max = 5000, average = 3000)
 	public void createNewDBconnection() throws Exception{
 		
-		Connection conn = manager.createNewDBconnection();	
+		Connection conn = DBManager.createNewDBconnection();	
 		
 		assertTrue(conn != null);
 	}
