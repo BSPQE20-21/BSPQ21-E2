@@ -30,9 +30,7 @@ jobs:
     - name: compile the code
       run: mvn clean compile
     - name: Launch the client
-      run:  |
-        export DISPLAY=":0.0"
-        mvn exec:java -Pclient
+      run:  mvn exec:java -Pclient
     
     - name: Test with Maven
       run: mvn test -DargLine="-Dcontiperf.active=false"
