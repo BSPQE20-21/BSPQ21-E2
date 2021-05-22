@@ -32,7 +32,7 @@ public class ServerContTest {
 	@Required(max = 1000, average = 1000)
 	public void testAddEmployee() {
 		server = new Server();
-		employee = new EmployeeData(1, "Iker", "Bilbao", "IT");		
+		employee = new EmployeeData(69, "Iker", "Bilbao", "IT");		
 		assertTrue(server.addEmployee(employee) != null);
 	}
 	
@@ -41,7 +41,7 @@ public class ServerContTest {
 	@Required(max = 2000, average = 1000)
 	public void testUpdateEmployee() {
 		server = new Server();
-		employee = new EmployeeData(1, "Iker", "Bilbao", "IT");		
+		employee = new EmployeeData(69, "Iker", "Bilbao", "IT");		
 		assertTrue(server.updateEmployee(employee) != null);
 	}
 	
@@ -64,7 +64,7 @@ public class ServerContTest {
 	@Required(max = 10000, average = 8000)
 	public void testDeleteEmployee() {
 		server = new Server();
-		int employeeID = 1;
+		int employeeID = 69;
 		assertTrue(server.deleteEmployee(employeeID) != null);
 	}
 	

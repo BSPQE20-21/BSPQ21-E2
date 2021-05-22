@@ -25,7 +25,7 @@ public class EmployeeContTest {
 	 
 	 @Test
 	 @PerfTest(invocations = 100, threads = 2)
-	 @Required(max = 50, average = 20)
+	 @Required(max = 100, average = 20)
 	 public void getId() throws Exception {
 	 expected = new Employee(01, "Iker", "Bilbao", "IT"); 
 	 assertEquals(expected.getId(), e1.getId());
@@ -33,7 +33,7 @@ public class EmployeeContTest {
 	 
 	 @Test
 	 @PerfTest(invocations = 100, threads = 2)
-	 @Required(max = 50, average = 20)
+	 @Required(max = 100, average = 20)
 	 public void getName() throws Exception {
 	 expected = new Employee(01, "Iker", "Bilbao", "IT"); 
 	 assertEquals(expected.getName(), e1.getName());
@@ -41,7 +41,7 @@ public class EmployeeContTest {
 	 
 	 @Test
 	 @PerfTest(invocations = 100, threads = 2)
-	 @Required(max = 50, average = 20)
+	 @Required(max = 100, average = 20)
 	 public void getAddress() throws Exception {
 	 expected = new Employee(01, "Iker", "Bilbao", "IT"); 
 	 assertEquals(expected.getAddress(), e1.getAddress());
@@ -49,7 +49,7 @@ public class EmployeeContTest {
 	 
 	 @Test
 	 @PerfTest(invocations = 100, threads = 2)
-	 @Required(max = 50, average = 20)
+	 @Required(max = 100, average = 20)
 	 public void getDepartment() throws Exception {
 	 expected = new Employee(01, "Iker", "Bilbao", "IT"); 
 	 assertEquals(expected.getDepartment(), e1.getDepartment());
