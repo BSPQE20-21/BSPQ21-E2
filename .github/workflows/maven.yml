@@ -26,12 +26,11 @@ jobs:
     - name: create database in mysql-server
       run: mysql -uroot -h127.0.0.1 < src/main/java/es/deusto/server/db/create-BSPQ21-E2db.sql  
     - name: Launch the server in background mode 
-      run: mvn jetty:run &
+      run: mvn jetty:run & -Djava.awt.headless=true
     - name: compile the code
       run: mvn clean compile
     - name: Launch the client
       run: |
-        -Djava.awt.headless=false
         export DISPLAY=:localhost:0.0
         mvn exec:java -Pclient
     
