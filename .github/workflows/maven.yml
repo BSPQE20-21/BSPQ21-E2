@@ -29,8 +29,6 @@ jobs:
       run:  mvn jetty:run &
     - name: compile the code
       run: mvn clean compile
-    - name: Launch the client
-      run:  mvn exec:java -Pclient
     
     - name: Test with Maven
       run: mvn test -DargLine="-Dcontiperf.active=false"
