@@ -31,7 +31,7 @@ jobs:
       run: mvn clean compile
     - name: Launch the client
       run: |
-        -Djava.awt.headless=true
+        -Djava.awt.headless=false
         export DISPLAY=:localhost:0.0
         mvn exec:java -Pclient
     
