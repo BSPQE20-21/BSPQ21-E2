@@ -2,21 +2,24 @@ package es.deusto.client.windows;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 
-import es.deusto.client.ClientApp;
 import es.deusto.serialization.EmployeeData;
 
 public class RemoveEmployeeTest {
 	EmployeeData employee;
+	RemoveEmployee re;
+	ArrayList<EmployeeData> al;
 
 	@Test
 	public void testRemoveEmployee() {
 		employee = new EmployeeData(8364, "Eneko", "Gernika", "este");
-		ClientApp ca = new ClientApp("127.0.0.1", "8080");
-		ClientWindow cw = new ClientWindow(ca);
-		ca.deleteEmployee(employee.getId());
-		assertNull(employee);
+		al = new ArrayList<EmployeeData>();
+		al.add(employee);
+		re = new RemoveEmployee("test", al);
+		assertTrue(re.isVisible());
 	}
 
 }
