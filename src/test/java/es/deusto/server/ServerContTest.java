@@ -17,8 +17,8 @@ import org.junit.Test;
 import es.deusto.serialization.EmployeeData;
 import es.deusto.serialization.EmployeeList;
 
-@PerfTest(invocations = 5)
-@Required(max = 10000, average = 5000)
+//@PerfTest(invocations = 5)
+//@Required(max = 10000, average = 5000)
 public class ServerContTest {
 	
 	private Server server;

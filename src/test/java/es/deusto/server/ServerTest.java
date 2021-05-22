@@ -27,13 +27,13 @@ public class ServerTest {
 	
 	@Test
 	public void testAddEmployee() {
-		EmployeeData employee = new EmployeeData(1, "Iker", "Bilbao", "IT");		
+		EmployeeData employee = new EmployeeData(30, "Iker", "Bilbao", "IT");		
 		assertTrue(server.addEmployee(employee) != null);
 	}
 	
 	@Test
 	public void testUpdateEmployee() {
-		EmployeeData employee = new EmployeeData(1, "Iker", "Bilbao", "IT");		
+		EmployeeData employee = new EmployeeData(30, "Iker", "Bilbao", "IT");		
 		assertTrue(server.updateEmployee(employee) != null);
 	}
 	
@@ -51,7 +51,7 @@ public class ServerTest {
 	
 	@Test
 	public void testDeleteEmployee() {
-		int employeeID = 1;
+		int employeeID = 30;
 		assertTrue(server.deleteEmployee(employeeID) != null);
 	}
 	
