@@ -13,7 +13,7 @@ import org.junit.Test;
 import es.deusto.client.ClientApp;
 import es.deusto.serialization.EmployeeData;
 
-public class ChooseLeaderWindowTest {
+public class ChooseLeaderWindowContTest {
 
 	ChooseLeaderWindow clw;
 	ClientApp ca;
