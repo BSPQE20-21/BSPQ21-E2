@@ -12,7 +12,7 @@ import org.junit.Test;
 import es.deusto.client.ClientApp;
 import es.deusto.serialization.EmployeeData;
 
-public class EmployeeInfoWindowTest {
+public class EmployeeInfoWindowContTest {
 	EmployeeInfoWindow eiw;
 	ClientApp ca;
 	EmployeeData expected;
