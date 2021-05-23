@@ -36,7 +36,7 @@ jobs:
     - name: Publish on Github Pages
       uses: crazy-max/ghaction-github-pages@v2.3.0
       with:
-        build_dir: docs/html
+        build_dir: docs
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
