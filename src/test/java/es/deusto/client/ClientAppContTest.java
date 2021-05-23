@@ -1,7 +1,6 @@
 package es.deusto.client;
 
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertEquals; 
 
 import java.awt.HeadlessException;
 import java.util.ArrayList;
@@ -50,11 +49,8 @@ public class ClientAppContTest {
 			works = true;
 		} catch (Exception e) {	
 		}
-		try {
-			assertTrue(works);	//assertTrue() throws an AssertionError if the condition is false, but it does not fail the test.
-		} catch (AssertionError e) {
-			fail();
-		}
+		
+		assertEquals(true, works);
 	}
 	
 //	@Test
@@ -82,11 +78,7 @@ public class ClientAppContTest {
 			works = true;
 		} catch (Exception e) {	
 		}
-		try {
-			assertTrue(works);
-		} catch (AssertionError e) {
-			fail();
-		}
+		assertEquals(true, works);
 	}
 	
 	@Test
@@ -100,11 +92,7 @@ public class ClientAppContTest {
 			works = true;
 		} catch (Exception e) {	
 		}
-		try {
-			assertTrue(works);
-		} catch (AssertionError e) {
-			fail();
-		}
+		assertEquals(true, works);
 	}
 	
 	@Test
@@ -118,10 +106,6 @@ public class ClientAppContTest {
 			works = true;
 		} catch (Exception e) {	
 		}
-		try {
-			assertTrue(works);
-		} catch (AssertionError e) {
-			fail();
-		}
+		assertEquals(true, works);
 	}
 }
