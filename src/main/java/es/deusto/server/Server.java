@@ -68,7 +68,7 @@ public class Server {
 		try {	
             tx.begin();
             log.info(resourceBundle.getString("update_employee"));
-			Employee employee = null;
+			Employee employee = new Employee();
 			try {
 				employee = pm.getObjectById(Employee.class, employeeData.getId());
 				pm.retrieve(employee);
@@ -135,7 +135,7 @@ public class Server {
 			try {
 	            log.info(resourceBundle.getString("getting_employee"));
 				employee = pm.getObjectById(Employee.class, id);
-				pm.deletePersistent(employee);
+				pm.deletePersistentAll(employee);
 			} catch (javax.jdo.JDOObjectNotFoundException jonfe) {
 				log.info(resourceBundle.getString("err_empl_not_found"));
 			}
