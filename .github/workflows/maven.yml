@@ -31,10 +31,6 @@ jobs:
       run: mvn clean compile
     - name: Test with Maven
       run: mvn test -DargLine="-Dcontiperf.active=false"
-    - name: Install doxygen
-      run: sudo apt-get install -y doxygen
-    - name: Install graphviz
-      run: sudo apt-get install -y graphviz
     - name: Generate documentation
       run: mvn doxygen:report
     - name: Publish on Github Pages
