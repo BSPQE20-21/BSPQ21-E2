@@ -32,7 +32,7 @@ public class ChooseLeaderWindowTest {
 			al.add(employee2);
 			
 		} catch(HeadlessException e) {
-			
+			//TODO
 		}
 	}
 	
@@ -40,10 +40,14 @@ public class ChooseLeaderWindowTest {
 	@PerfTest(invocations = 100, threads = 2)
 	@Required(max = 200, average = 100)
 	public void WindowTest() {
-		clw = new ChooseLeaderWindow("Chosse Leader Window test", al);
-		assertTrue(clw.isVisible());
-		assertTrue(clw.jframe.getBounds().getHeight() > 0);
-		assertTrue(clw.jframe.getBounds().getWidth() > 0);
+		try {
+			clw = new ChooseLeaderWindow("Chosse Leader Window test", al);
+			assertTrue(clw.isVisible());
+			assertTrue(clw.jframe.getBounds().getHeight() > 0);
+			assertTrue(clw.jframe.getBounds().getWidth() > 0);
+		} catch (HeadlessException e) {
+			//TODO
+		}
 		
 	}
 

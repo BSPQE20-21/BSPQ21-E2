@@ -27,7 +27,7 @@ public class EmployeeInfoWindowTest {
 			expected = new EmployeeData(983473, "Gorka", "testAdress", "testDepart");
 			
 		} catch(HeadlessException e) {
-			
+			//TODO
 		}
 	}
 	
@@ -36,8 +36,13 @@ public class EmployeeInfoWindowTest {
 	@PerfTest(invocations = 100, threads = 2)
 	@Required(max = 200, average = 100)
 	public void testEmployeeInfoWindow() {
-		eiw = new EmployeeInfoWindow("Employee Info Window test");
-		assertTrue(eiw.isVisible());
+		try {
+			eiw = new EmployeeInfoWindow("Employee Info Window test");
+			assertTrue(eiw.isVisible());
+		} catch (HeadlessException e) {
+			//TODO
+		}
+
 	}
 
 }
