@@ -68,7 +68,7 @@ public class ClientApp {
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			log.info(resourceBundle.getString("server_connection_error")+response.getStatus());
 		} else {
-			log.info(resourceBundle.getString("err_add_empl"));
+			log.info(resourceBundle.getString("empl_add_correct"));
 		}
 	}
 	
@@ -98,7 +98,7 @@ public class ClientApp {
 			if (response.getStatus() != Status.OK.getStatusCode()) {
 				log.info(resourceBundle.getString("server_connection_error")+response.getStatus());
 			} else {
-				log.info(resourceBundle.getString("err_upd_empl"));
+				log.info(resourceBundle.getString("empl_upd_correct"));
 			}
 			
 		} else {
@@ -122,7 +122,7 @@ public class ClientApp {
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			log.info(resourceBundle.getString("server_connection_error")+response.getStatus());
 		} else {
-			log.info(resourceBundle.getString("err_upd_empls"));
+			log.info(resourceBundle.getString("empls_upd_correct"));
 		}
 	}
 	
@@ -138,7 +138,7 @@ public class ClientApp {
 		if (response.getStatus() != Status.OK.getStatusCode()) {
 			log.info(resourceBundle.getString("server_connection_error")+response.getStatus());
 		} else {
-			log.info(resourceBundle.getString("err_del_empl"));
+			log.info(resourceBundle.getString("ok_del_empl"));
 		}
 	}
 	
