@@ -2,6 +2,7 @@ package es.deusto.client;
 
 import static org.junit.Assert.assertTrue;
 
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +20,24 @@ public class ClientAppContTest {
 	@Rule
 	public ContiPerfRule i = new ContiPerfRule();
 
-	EmployeeData employee = new EmployeeData(1, "test", "testAddres", "testDepart");
-	List<EmployeeData> employees = new ArrayList<EmployeeData>();
+	EmployeeData employee;
+	List<EmployeeData> employees;
 	String hostname = "127.0.0.1";
 	String port = "8080";
-	ClientApp client = new ClientApp(hostname, port);
+	ClientApp client;
 
+	@Before
+	public void init() {
+		employee = new EmployeeData(1, "test", "testAddres", "testDepart");
+		employees = new ArrayList<EmployeeData>();
+		
+		try {
+			client = new ClientApp(hostname, port);
+		} catch (HeadlessException e) {
+			//TODO
+		}
+	}
+	
 	@Test
 	@PerfTest(invocations = 10, threads = 2)
 	@Required(max = 5000, average = 3000)

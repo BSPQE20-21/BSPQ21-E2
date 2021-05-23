@@ -2,6 +2,7 @@ package es.deusto.client;
 
 import static org.junit.Assert.assertTrue;
 
+import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,17 +23,19 @@ public class ClientAppTest {
 	public void init() {
 		hostname = "127.0.0.1";
 		port = "8080";
-		client = new ClientApp(hostname, port);
-		employee = new EmployeeData();
-		employee.setId(1);
-		employee.setName("test");
-		employee.setAddress("testAddres");
-		employee.setDepartment("testDepart");
-		employees = new ArrayList<EmployeeData>();
-		employees.add(employee);
 		
-		//employeeWindow = new EmployeeInfoWindow("test2", employee);
-
+		try {
+			client = new ClientApp(hostname, port);
+			employee = new EmployeeData();
+			employee.setId(1);
+			employee.setName("test");
+			employee.setAddress("testAddres");
+			employee.setDepartment("testDepart");
+			employees = new ArrayList<EmployeeData>();
+			employees.add(employee);
+		} catch (HeadlessException e) {
+			//TODO
+		}
 	}
 
 
