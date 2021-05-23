@@ -23,7 +23,7 @@ public class RemoveEmployeeTest {
 			re = new RemoveEmployee("test", al);
 			assertTrue(re.isVisible());
 		} catch (HeadlessException e){
-			//TOOD
+			//TODO
 		}
 
 	}

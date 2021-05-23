@@ -27,14 +27,26 @@ public class ServerTest {
 	
 	@Test
 	public void testAddEmployee() {
-		EmployeeData employee = new EmployeeData(30, "Iker", "Bilbao", "IT");		
-		assertTrue(server.addEmployee(employee) != null);
+		EmployeeData employee = new EmployeeData(30, "Iker", "Bilbao", "IT");
+		
+		try {
+			assertTrue(server.addEmployee(employee) != null);
+		} catch (AssertionError e) {
+			fail();
+		}
+		
 	}
 	
 	@Test
 	public void testUpdateEmployee() {
-		EmployeeData employee = new EmployeeData(30, "Iker", "Bilbao", "IT");		
-		assertTrue(server.updateEmployee(employee) != null);
+		EmployeeData employee = new EmployeeData(30, "Iker", "Bilbao", "IT");	
+		
+		try {
+			assertTrue(server.updateEmployee(employee) != null);
+		} catch (AssertionError e) {
+			fail();
+		}
+		
 	}
 	
 //	@Test
@@ -52,12 +64,22 @@ public class ServerTest {
 	@Test
 	public void testDeleteEmployee() {
 		int employeeID = 30;
-		assertTrue(server.deleteEmployee(employeeID) != null);
+		
+		try {
+			assertTrue(server.deleteEmployee(employeeID) != null);
+		} catch (AssertionError e) {
+			fail();
+		}
+		
 	}
 	
 	@Test
 	public void testGetEmployees() {
-		assertTrue(server.getEmployees() != null);
+		try {
+			assertTrue(server.getEmployees() != null);
+		} catch (AssertionError e) {
+			fail();
+		}
 	}
 
 }

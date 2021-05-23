@@ -25,7 +25,10 @@ public class DBManagerContTest {
 	public void createNewDBconnection() throws Exception{
 		
 		Connection conn = DBManager.createNewDBconnection();	
-		
-		assertTrue(conn != null);
+		try {
+			assertTrue(conn != null);
+		} catch (AssertionError e) {
+			fail();
+		}
 	}
 }

@@ -32,8 +32,14 @@ public class ServerContTest {
 	@Required(max = 1000, average = 1000)
 	public void testAddEmployee() {
 		server = new Server();
-		employee = new EmployeeData(69, "Iker", "Bilbao", "IT");		
-		assertTrue(server.addEmployee(employee) != null);
+		employee = new EmployeeData(69, "Iker", "Bilbao", "IT");
+		
+		try {
+			assertTrue(server.addEmployee(employee) != null);
+		} catch (AssertionError e) {
+			fail();
+		}
+		
 	}
 	
 	@Test
@@ -41,8 +47,14 @@ public class ServerContTest {
 	@Required(max = 2000, average = 1000)
 	public void testUpdateEmployee() {
 		server = new Server();
-		employee = new EmployeeData(69, "Iker", "Bilbao", "IT");		
-		assertTrue(server.updateEmployee(employee) != null);
+		employee = new EmployeeData(69, "Iker", "Bilbao", "IT");
+		
+		try {
+			assertTrue(server.updateEmployee(employee) != null);
+		} catch (AssertionError e) {
+			fail();
+		}
+		
 	}
 	
 //	@Test
@@ -65,7 +77,13 @@ public class ServerContTest {
 	public void testDeleteEmployee() {
 		server = new Server();
 		int employeeID = 69;
-		assertTrue(server.deleteEmployee(employeeID) != null);
+		
+		try {
+			assertTrue(server.deleteEmployee(employeeID) != null);
+		} catch (AssertionError e) {
+			fail();
+		}
+		
 	}
 	
 	@Test
@@ -73,7 +91,13 @@ public class ServerContTest {
 	@Required(max = 2000, average = 1000)
 	public void testGetEmployees() {
 		server = new Server();
-		assertTrue(server.getEmployees() != null);
+		
+		try {
+			assertTrue(server.getEmployees() != null);
+		} catch (AssertionError e) {
+			fail();
+		}
+		
 	}
 
 }

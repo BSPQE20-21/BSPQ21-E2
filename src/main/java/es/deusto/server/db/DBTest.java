@@ -24,7 +24,7 @@ public class DBTest
 	
 	public static void main(String[] args) {
 		
-		String sql_select = "Select * From employee_info";
+		String sql_select = "Select * From employee";
 		
 		try(Connection conn = DBManager.createNewDBconnection()){
 			
