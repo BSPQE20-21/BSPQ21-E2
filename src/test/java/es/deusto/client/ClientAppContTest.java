@@ -47,8 +47,7 @@ public class ClientAppContTest {
 		try {
 			client.registerEmployee(employee);
 			works = true;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} catch (Exception e) {	
 		}
 		
 		assertEquals(true, works);
@@ -78,7 +77,6 @@ public class ClientAppContTest {
 			client.updateEmployees(employees);
 			works = true;
 		} catch (Exception e) {	
-			System.out.println(e.getMessage());
 		}
 		assertEquals(true, works);
 	}
@@ -92,8 +90,7 @@ public class ClientAppContTest {
 		try {
 			client.deleteEmployee(employee.getId());
 			works = true;
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
+		} catch (Exception e) {	
 		}
 		assertEquals(true, works);
 	}
@@ -108,7 +105,6 @@ public class ClientAppContTest {
 			client.getEmployees();
 			works = true;
 		} catch (Exception e) {	
-			System.out.println(e.getMessage());
 		}
 		assertEquals(true, works);
 	}
