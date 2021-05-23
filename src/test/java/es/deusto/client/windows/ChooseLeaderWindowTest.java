@@ -28,6 +28,7 @@ public class ChooseLeaderWindowTest {
 			cw = new ClientWindow(ca);
 			EmployeeData employee1 = new EmployeeData(345322, "Gonzalo", "testAdress1", "testDepart1");
 			EmployeeData employee2 = new EmployeeData(234521, "Mikel", "testAdress2", "testDepart2");
+			al = new ArrayList<EmployeeData>();
 			al.add(employee1);
 			al.add(employee2);
 			
