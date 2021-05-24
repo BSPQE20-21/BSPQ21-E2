@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ChooseLeaderWindow.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSPQ21-E2</a> &gt; <a href="index.source.html" class="el_package">es.deusto.client.windows</a> &gt; <span class="el_source">ChooseLeaderWindow.java</span></div><h1>ChooseLeaderWindow.java</h1><pre class="source lang-java linenums">package es.deusto.client.windows;
+
+import java.awt.BorderLayout; 
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
+import es.deusto.serialization.EmployeeData;
+import es.deusto.server.Server;
+
+public class ChooseLeaderWindow extends JFrame{
+	
+	public ChooseLeaderWindow jframe;
+	public JComboBox&lt;String&gt; departCombo;
+	public JComboBox&lt;String&gt; employeeCombo;
+	private ArrayList&lt;EmployeeData&gt; employees;
+	private ArrayList&lt;String&gt; departmentList;
+	public HashMap&lt;String, ArrayList&lt;EmployeeData&gt;&gt; departmentMap;
+<span class="fc" id="L33">	private static final Logger log = Logger.getLogger(ChooseLeaderWindow.class.getName());</span>
+<span class="fc" id="L34">	static ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;SystemMessages&quot;, Locale.getDefault());</span>
+	
+	/**
+	 * Window that handles the choose leader functionality.
+	 * @param title The name of the window.
+	 * @param employees A list of all the employees.
+	 */
+<span class="fc" id="L41">	public ChooseLeaderWindow(String title, ArrayList&lt;EmployeeData&gt; employees) {</span>
+<span class="fc" id="L42">		jframe = this;</span>
+<span class="fc" id="L43">		jframe.employees = employees;</span>
+<span class="fc" id="L44">		jframe.mapEmployees();</span>
+<span class="fc" id="L45">		jframe.initialize(title);</span>
+<span class="fc" id="L46">		jframe.setVisible(true);</span>
+<span class="fc" id="L47">	}</span>
+	
+	/**
+	 * Initializes all the contents of the ChooseLeaderWindow
+	 * @param title The name of the window.
+	 */
+	private void initialize(String title) {
+<span class="fc" id="L54">		log.info(resourceBundle.getString(&quot;ch_leader_w_init&quot;));</span>
+<span class="fc" id="L55">		jframe.setTitle(title);</span>
+<span class="fc" id="L56">		jframe.setBounds(100, 100, 450, 200);</span>
+<span class="fc" id="L57">		jframe.getContentPane().setLayout(new BorderLayout(0, 0));</span>
+		
+<span class="fc" id="L59">		JPanel comboPanel = new JPanel(new FlowLayout());</span>
+<span class="fc" id="L60">		JLabel dptLabel = new JLabel(resourceBundle.getString(&quot;l_ch_depart&quot;));</span>
+<span class="fc" id="L61">		departCombo = new JComboBox(departmentList.toArray());</span>
+<span class="fc" id="L62">		departCombo.setPrototypeDisplayValue(&quot;teeeeeeeeeeeeext&quot;);</span>
+<span class="fc" id="L63">		comboPanel.add(dptLabel);</span>
+<span class="fc" id="L64">		comboPanel.add(departCombo);</span>
+		
+<span class="fc" id="L66">		JPanel centralPanel = new JPanel(new BorderLayout());</span>
+		
+<span class="fc" id="L68">		JPanel southPanel = new JPanel(new FlowLayout());</span>
+<span class="fc" id="L69">		JButton btnClose = new JButton(resourceBundle.getString(&quot;b_quit&quot;));</span>
+<span class="fc" id="L70">		southPanel.add(btnClose);</span>
+		
+<span class="fc" id="L72">		jframe.add(comboPanel, BorderLayout.NORTH);</span>
+<span class="fc" id="L73">		jframe.add(centralPanel, BorderLayout.CENTER);</span>
+<span class="fc" id="L74">		jframe.add(southPanel, BorderLayout.SOUTH);</span>
+		
+		
+<span class="fc" id="L77">		departCombo.addActionListener(new ActionListener() {</span>
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L81">				log.info(resourceBundle.getString(&quot;chosen_dpt&quot;)+&quot; &quot;+departCombo.getSelectedItem().toString());</span>
+<span class="nc" id="L82">				JLabel questionLabel = new JLabel(resourceBundle.getString(&quot;l_ch_leader&quot;), SwingConstants.CENTER);</span>
+<span class="nc" id="L83">				String dptSelection = departCombo.getSelectedItem().toString();</span>
+<span class="nc" id="L84">				JComboBox&lt;EmployeeData&gt; employeeCombo = new JComboBox(departmentMap.get(dptSelection).toArray());</span>
+<span class="nc" id="L85">				JPanel comboPanel = new JPanel(new BorderLayout());</span>
+<span class="nc" id="L86">				JButton mkLeader = new JButton(resourceBundle.getString(&quot;b_mk_leader&quot;));</span>
+				
+<span class="nc" id="L88">				comboPanel.add(employeeCombo, BorderLayout.NORTH);</span>
+<span class="nc" id="L89">				comboPanel.add(mkLeader, BorderLayout.SOUTH);</span>
+<span class="nc" id="L90">				centralPanel.add(questionLabel, BorderLayout.NORTH);</span>
+<span class="nc" id="L91">				centralPanel.add(comboPanel, BorderLayout.CENTER);</span>
+				
+<span class="nc" id="L93">				jframe.revalidate();</span>
+<span class="nc" id="L94">				jframe.repaint();</span>
+				
+<span class="nc" id="L96">				mkLeader.addActionListener(new ActionListener() {</span>
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L100">						int emplNumber = employeeCombo.getSelectedIndex();</span>
+<span class="nc" id="L101">						log.info(resourceBundle.getString(&quot;chosen_leader&quot;)+&quot; &quot;+departmentMap.get(dptSelection).get(emplNumber).getName());</span>
+
+<span class="nc bnc" id="L103" title="All 2 branches missed.">						for (int i = 0; i &lt; departmentMap.get(dptSelection).size(); i++) {</span>
+<span class="nc bnc" id="L104" title="All 2 branches missed.">							if (i == emplNumber) {</span>
+<span class="nc" id="L105">								(departmentMap.get(dptSelection)).get(i).setLeader(true);</span>
+							} else {
+<span class="nc" id="L107">								(departmentMap.get(dptSelection)).get(i).setLeader(false);</span>
+							}
+						}
+						
+<span class="nc" id="L111">						ClientWindow.clientApp.updateEmployees(departmentMap.get(dptSelection));</span>
+<span class="nc" id="L112">					}</span>
+				});
+<span class="nc" id="L114">			}</span>
+		});
+		
+<span class="fc" id="L117">		btnClose.addActionListener(new ActionListener() {</span>
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L121">				ClientWindow.menuFrame.setEnabled(true);</span>
+<span class="nc" id="L122">				jframe.dispose();</span>
+<span class="nc" id="L123">			}</span>
+		});
+		
+<span class="fc" id="L126">		jframe.addWindowListener(new WindowAdapter() {</span>
+			 public void windowClosing(WindowEvent e){
+<span class="nc" id="L128">				ClientWindow.menuFrame.setEnabled(true);</span>
+<span class="nc" id="L129">				jframe.dispose();</span>
+<span class="nc" id="L130">	            }</span>
+		});
+<span class="fc" id="L132">	}</span>
+	
+	/**
+	 * Creates a list of all the departments and a list of employees hash map, where the department name is the key.
+	 */
+	private void mapEmployees() {
+<span class="fc" id="L138">		departmentList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L139">		departmentMap = new HashMap&lt;&gt;();</span>
+		
+<span class="fc bfc" id="L141" title="All 2 branches covered.">		for (EmployeeData employee : employees) {</span>
+<span class="pc bpc" id="L142" title="1 of 2 branches missed.">			if(!departmentList.contains(employee.getDepartment())) {</span>
+<span class="fc" id="L143">				departmentList.add(employee.getDepartment());</span>
+<span class="fc" id="L144">				ArrayList&lt;EmployeeData&gt; employeeList = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L145">				employeeList.add(employee);</span>
+<span class="fc" id="L146">				departmentMap.put(employee.getDepartment(), employeeList);				</span>
+			
+<span class="fc" id="L148">			} else {</span>
+<span class="nc" id="L149">				departmentMap.get(employee.getDepartment()).add(employee);</span>
+			}
+<span class="fc" id="L151">		}</span>
+<span class="fc" id="L152">	}</span>
+	
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

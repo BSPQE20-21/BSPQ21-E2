@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Employee.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSPQ21-E2</a> &gt; <a href="index.source.html" class="el_package">es.deusto.profiling</a> &gt; <span class="el_source">Employee.java</span></div><h1>Employee.java</h1><pre class="source lang-java linenums">package es.deusto.profiling;
+
+import java.io.File;
+
+
+<span class="nc" id="L6">public class Employee {</span>
+	
+public static void main(String[] args) {
+		
+<span class="nc bnc" id="L10" title="All 2 branches missed.">		if(args.length == 0)</span>
+		{
+<span class="nc" id="L12">			System.out.println(&quot;enter employee list location in this form x:\\path\\Employee&quot;);</span>
+<span class="nc" id="L13">			return;</span>
+		}
+		
+		try {
+<span class="nc" id="L17">			System.in.read();</span>
+<span class="nc" id="L18">		} catch (Exception e) {</span>
+<span class="nc" id="L19">			e.printStackTrace();</span>
+<span class="nc" id="L20">		}</span>
+
+<span class="nc" id="L22">		Employee employeeList = new Employee();</span>
+<span class="nc" id="L23">		employeeList.readListFromFolder(args[0]);</span>
+		
+		try {
+<span class="nc" id="L26">			System.in.read();</span>
+<span class="nc" id="L27">			System.in.read();</span>
+<span class="nc" id="L28">		} catch (Exception e) {</span>
+<span class="nc" id="L29">			e.printStackTrace();</span>
+<span class="nc" id="L30">		}</span>
+		
+<span class="nc" id="L32">	}</span>
+
+	public void readListFromFolder(String name) {
+		
+<span class="nc bnc" id="L36" title="All 2 branches missed.">		if(name == null)</span>
+		{
+<span class="nc" id="L38">			System.out.println(&quot;invalid folder name&quot;);</span>
+<span class="nc" id="L39">			return;</span>
+		}
+		
+<span class="nc" id="L42">		File file = new File(name);</span>
+<span class="nc bnc" id="L43" title="All 4 branches missed.">		if(!file.exists() || !file.isDirectory())</span>
+		{
+<span class="nc" id="L45">			System.out.println(&quot;invalid folder name &quot; + name);</span>
+<span class="nc" id="L46">			return;</span>
+		}
+		
+<span class="nc" id="L49">		EmployeeProfiling info = new EmployeeProfiling();</span>
+<span class="nc" id="L50">		info.readData(name);</span>
+		
+<span class="nc" id="L52">		System.out.println(info.getContent());</span>
+		
+<span class="nc" id="L54">	}</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClientApp.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSPQ21-E2</a> &gt; <a href="index.source.html" class="el_package">es.deusto.client</a> &gt; <span class="el_source">ClientApp.java</span></div><h1>ClientApp.java</h1><pre class="source lang-java linenums">package es.deusto.client;
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+import org.glassfish.jersey.client.ClientResponse;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
+
+import es.deusto.client.windows.ClientWindow;
+import es.deusto.serialization.EmployeeData;
+import es.deusto.serialization.EmployeeList;
+import es.deusto.server.Server;
+
+
+public class ClientApp {
+
+	private Client client;
+	private WebTarget webTarget;
+<span class="fc" id="L31">	private static final Logger log = Logger.getLogger(ClientApp.class.getName());</span>
+<span class="fc" id="L32">	static ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;SystemMessages&quot;, Locale.getDefault());</span>
+<span class="fc" id="L33">	public ArrayList&lt;EmployeeData&gt; employees = new ArrayList&lt;EmployeeData&gt;();</span>
+
+	public static void main(String[] args) {
+<span class="nc bnc" id="L36" title="All 2 branches missed.">		if (args.length != 2) {</span>
+<span class="nc" id="L37">			System.out.println(&quot;Use: java Client.Client [host] [port]&quot;);</span>
+<span class="nc" id="L38">			System.exit(0);</span>
+		}
+		
+<span class="nc" id="L41">		String hostname = args[0];</span>
+<span class="nc" id="L42">		String port = args[1];</span>
+
+<span class="nc" id="L44">		ClientApp client = new ClientApp(hostname, port);</span>
+<span class="nc" id="L45">	}</span>
+	
+	/**
+	 * Class that handles the connectivity requests with the server
+	 * @param hostname
+	 * @param port
+	 */
+<span class="fc" id="L52">	public ClientApp(String hostname, String port) {</span>
+<span class="fc" id="L53">		client = ClientBuilder.newClient();</span>
+<span class="fc" id="L54">		webTarget = client.target(String.format(&quot;http://%s:%s/rest/server&quot;, hostname, port));</span>
+<span class="fc" id="L55">		ClientWindow window = new ClientWindow(this);</span>
+<span class="fc" id="L56">	}</span>
+
+	/**
+	 * Registers a single employee by sending it to the server. 
+	 * @param employeeData Info of the new employee.
+	 */
+	public void registerEmployee(EmployeeData employeeData) {
+<span class="nc" id="L63">		WebTarget addEmployeeWebTarget = webTarget.path(&quot;addEmployee&quot;);</span>
+<span class="nc" id="L64">		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);</span>
+		
+<span class="nc" id="L66">		Response response = invocationBuilder.post(Entity.entity(employeeData, MediaType.APPLICATION_JSON));</span>
+		
+<span class="nc bnc" id="L68" title="All 2 branches missed.">		if (response.getStatus() != Status.OK.getStatusCode()) {</span>
+<span class="nc" id="L69">			log.info(resourceBundle.getString(&quot;server_connection_error&quot;)+response.getStatus());</span>
+		} else {
+<span class="nc" id="L71">			log.info(resourceBundle.getString(&quot;empl_add_correct&quot;));</span>
+		}
+<span class="nc" id="L73">	}</span>
+	
+	/**
+	 * Updates a single employee by sending the info to the server. All the attributes of the employee will be updated.
+	 * @param employees List of the current loaded employees.
+	 * @param id New id.
+	 * @param name New name.
+	 * @param address New address.
+	 * @param department New department.
+	 * @param leader New leader.
+	 */
+	public void updateEmployee(List&lt;EmployeeData&gt; employees, int id, String name, String address, String department, boolean leader ) {
+<span class="nc" id="L85">		WebTarget addEmployeeWebTarget = webTarget.path(&quot;updateEmployee&quot;);</span>
+<span class="nc" id="L86">		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">		if(employees.get(id) != null) {</span>
+<span class="nc" id="L88">			EmployeeData employeeData = employees.get(id);</span>
+<span class="nc" id="L89">			employees.remove(id);</span>
+<span class="nc" id="L90">			employeeData.setId(id);</span>
+<span class="nc" id="L91">			employeeData.setName(name);</span>
+<span class="nc" id="L92">			employeeData.setAddress(address);</span>
+<span class="nc" id="L93">			employeeData.setDepartment(department);</span>
+<span class="nc" id="L94">			employeeData.setLeader(leader);</span>
+			
+<span class="nc" id="L96">			Response response = invocationBuilder.post(Entity.entity(employeeData, MediaType.APPLICATION_JSON));</span>
+			
+<span class="nc bnc" id="L98" title="All 2 branches missed.">			if (response.getStatus() != Status.OK.getStatusCode()) {</span>
+<span class="nc" id="L99">				log.info(resourceBundle.getString(&quot;server_connection_error&quot;)+response.getStatus());</span>
+			} else {
+<span class="nc" id="L101">				log.info(resourceBundle.getString(&quot;empl_upd_correct&quot;));</span>
+			}
+			
+<span class="nc" id="L104">		} else {</span>
+<span class="nc" id="L105">			log.info(resourceBundle.getString(&quot;err_upd_empl&quot;));</span>
+		}
+<span class="nc" id="L107">	}</span>
+	
+	/**
+	 * Updates all the employees passed.
+	 * @param employees List of employees to be updated.
+	 */
+	public void updateEmployees(List&lt;EmployeeData&gt; employees) {
+<span class="nc" id="L114">		WebTarget addEmployeeWebTarget = webTarget.path(&quot;updateEmployees&quot;);</span>
+<span class="nc" id="L115">		Invocation.Builder invocationBuilder = addEmployeeWebTarget.request(MediaType.APPLICATION_JSON);</span>
+		
+<span class="nc" id="L117">		EmployeeList employeeList = new EmployeeList();</span>
+<span class="nc" id="L118">		employeeList.setEmployees(new HashSet(employees));</span>
+		
+<span class="nc" id="L120">		Response response = invocationBuilder.post(Entity.entity(employeeList, MediaType.APPLICATION_JSON));</span>
+		
+<span class="nc bnc" id="L122" title="All 2 branches missed.">		if (response.getStatus() != Status.OK.getStatusCode()) {</span>
+<span class="nc" id="L123">			log.info(resourceBundle.getString(&quot;server_connection_error&quot;)+response.getStatus());</span>
+		} else {
+<span class="nc" id="L125">			log.info(resourceBundle.getString(&quot;empls_upd_correct&quot;));</span>
+		}
+<span class="nc" id="L127">	}</span>
+	
+	/**
+	 * Deletes an employee from the server's database.
+	 * @param id Id of the employee to be deleted.
+	 */
+	public void deleteEmployee(int id) {
+<span class="nc" id="L134">		WebTarget deleteEmployeeWebTarget = webTarget.path(&quot;deleteEmployee&quot;);</span>
+<span class="nc" id="L135">		Invocation.Builder invocationBuilder = deleteEmployeeWebTarget.request(MediaType.APPLICATION_JSON);</span>
+
+<span class="nc" id="L137">		Response response = invocationBuilder.post(Entity.entity(id, MediaType.APPLICATION_JSON));</span>
+<span class="nc bnc" id="L138" title="All 2 branches missed.">		if (response.getStatus() != Status.OK.getStatusCode()) {</span>
+<span class="nc" id="L139">			log.info(resourceBundle.getString(&quot;server_connection_error&quot;)+response.getStatus());</span>
+		} else {
+<span class="nc" id="L141">			log.info(resourceBundle.getString(&quot;ok_del_empl&quot;));</span>
+		}
+<span class="nc" id="L143">	}</span>
+	
+	/**
+	 * Loads all the employees from the database into the ClientApp.employee parameter.
+	 */
+	public void getEmployees(){
+<span class="nc" id="L149">		WebTarget getEmployeesWebTarget = webTarget.path(&quot;/getEmployees&quot;);</span>
+<span class="nc" id="L150">		Invocation.Builder invocationBuilder = getEmployeesWebTarget.request(MediaType.APPLICATION_JSON);</span>
+<span class="nc" id="L151">		Response response = invocationBuilder.get();</span>
+		
+<span class="nc bnc" id="L153" title="All 2 branches missed.">		if (response.getStatus() != Status.OK.getStatusCode()) {</span>
+<span class="nc" id="L154">			log.info(resourceBundle.getString(&quot;server_connection_error&quot;)+response.getStatus());</span>
+		
+		} else {
+<span class="nc" id="L157">			EmployeeList employeeList = response.readEntity(EmployeeList.class);</span>
+<span class="nc" id="L158">			employees = new ArrayList&lt;EmployeeData&gt;(employeeList.getEmployees());</span>
+
+<span class="nc" id="L160">			log.info(resourceBundle.getString(&quot;ok_get_empl&quot;));</span>
+		}
+<span class="nc" id="L162">	}</span>
+	
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
