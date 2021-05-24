@@ -26,7 +26,7 @@ public class EmployeeInfoWindow extends JFrame {
 	private JTextField tName = new JTextField("");
 	private JTextField tAddress = new JTextField("");
 	private JTextField tDepartment = new JTextField("");
-	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
+	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 	
 	/**
 	 * Window that handles the add employee functionality.

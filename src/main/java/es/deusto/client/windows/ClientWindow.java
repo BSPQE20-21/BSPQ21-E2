@@ -23,7 +23,7 @@ public class ClientWindow {
 	public static JFrame menuFrame;
 	public static EmployeeData employee = new EmployeeData();
 	public static ClientApp clientApp;
-	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
+	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 	
 	/**
 	 * Constructor of the ClientWindow class. Is the window used to access the app's functionalities.

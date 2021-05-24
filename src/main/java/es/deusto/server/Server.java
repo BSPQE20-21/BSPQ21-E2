@@ -29,7 +29,7 @@ public class Server {
 	static ResourceBundle resourceBundle;
 	
 	public Server() {
-		resourceBundle = ResourceBundle.getBundle("SystemMessages",	Locale.forLanguageTag("en"));
+		resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 		
 		PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("datanucleus.properties");
 		this.pm = pmf.getPersistenceManager();

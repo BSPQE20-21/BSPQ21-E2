@@ -31,7 +31,7 @@ public class ChooseLeaderWindow extends JFrame{
 	private ArrayList<String> departmentList;
 	public HashMap<String, ArrayList<EmployeeData>> departmentMap;
 	private static final Logger log = Logger.getLogger(ChooseLeaderWindow.class.getName());
-	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
+	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 	
 	/**
 	 * Window that handles the choose leader functionality.
@@ -57,7 +57,7 @@ public class ChooseLeaderWindow extends JFrame{
 		jframe.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel comboPanel = new JPanel(new FlowLayout());
-		JLabel dptLabel = new JLabel(resourceBundle.getString("err_add_empl"));
+		JLabel dptLabel = new JLabel(resourceBundle.getString("l_ch_depart"));
 		departCombo = new JComboBox(departmentList.toArray());
 		departCombo.setPrototypeDisplayValue("teeeeeeeeeeeeext");
 		comboPanel.add(dptLabel);

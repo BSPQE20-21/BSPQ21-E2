@@ -28,7 +28,7 @@ import es.deusto.serialization.EmployeeData;
 public class RemoveEmployee extends JFrame{
 	
 	public RemoveEmployee jframe;
-	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));
+	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 	private static final Logger log = Logger.getLogger(RemoveEmployee.class.getName());
 	
 	

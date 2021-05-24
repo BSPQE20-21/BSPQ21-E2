@@ -29,7 +29,7 @@ public class ClientApp {
 	private Client client;
 	private WebTarget webTarget;
 	private static final Logger log = Logger.getLogger(ClientApp.class.getName());
-	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.forLanguageTag("en"));;
+	static ResourceBundle resourceBundle = ResourceBundle.getBundle("SystemMessages", Locale.getDefault());
 	public ArrayList<EmployeeData> employees = new ArrayList<EmployeeData>();
 
 	public static void main(String[] args) {
@@ -37,7 +37,7 @@ public class ClientApp {
 			System.out.println("Use: java Client.Client [host] [port]");
 			System.exit(0);
 		}
-
+		
 		String hostname = args[0];
 		String port = args[1];
 
