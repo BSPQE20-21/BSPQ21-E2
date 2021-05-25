@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.Required;
 import org.junit.Before;
@@ -20,8 +21,11 @@ public class ChooseLeaderWindowContTest {
 	ClientWindow cw;
 	ArrayList<EmployeeData> al;
 
+	final Logger logger = Logger.getLogger(ChooseLeaderWindowContTest.class.getName());
+
 	@Before
 	public void setUp() {
+		logger.info("set UP");
 		try {
 			
 			ca = new ClientApp("127.0.0.1", "8080");
@@ -41,6 +45,7 @@ public class ChooseLeaderWindowContTest {
 	@PerfTest(invocations = 100, threads = 2)
 	@Required(max = 200, average = 100)
 	public void WindowTest() {
+		logger.info("Testing ChooseLeaderWindow");
 		try {
 			clw = new ChooseLeaderWindow("Chosse Leader Window test", al);
 			assertTrue(clw.isVisible());

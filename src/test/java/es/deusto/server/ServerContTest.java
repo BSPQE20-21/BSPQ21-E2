@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.log4j.Logger;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.Required;
 import org.databene.contiperf.junit.ContiPerfRule;
@@ -16,23 +17,27 @@ import org.junit.Test;
 
 import es.deusto.serialization.EmployeeData;
 import es.deusto.serialization.EmployeeList;
+import es.deusto.server.dto.EmployeeDTOContTest;
 
-//@PerfTest(invocations = 5)
-//@Required(max = 10000, average = 5000)
+@PerfTest(invocations = 5)
+@Required(max = 10000, average = 5000)
 public class ServerContTest {
 	
 	private Server server;
 	private EmployeeData employee;
+	
+	final Logger logger = Logger.getLogger(ServerContTest.class.getName());
 	
 	@Rule
 	public ContiPerfRule i = new ContiPerfRule();
 	
 	@Test
 	@PerfTest(invocations = 10, threads = 2)
-	@Required(max = 1000, average = 1000)
+	@Required(max = 10000, average = 3000)
 	public void testAddEmployee() {
 		server = new Server();
 		employee = new EmployeeData(69, "Iker", "Bilbao", "IT");
+		logger.info("Testing AddEmployee");
 		
 		try {
 			assertTrue(server.addEmployee(employee) != null);
@@ -44,10 +49,11 @@ public class ServerContTest {
 	
 	@Test
 	@PerfTest(invocations = 10, threads = 2)
-	@Required(max = 2000, average = 1000)
+	@Required(max = 10000, average = 3000)
 	public void testUpdateEmployee() {
 		server = new Server();
-		employee = new EmployeeData(69, "Iker", "Bilbao", "IT");
+		employee = new EmployeeData(1, "Iker", "Bilbao", "IT");
+		logger.info("Testing UpdateEmployee");
 		
 		try {
 			assertTrue(server.updateEmployee(employee) != null);
@@ -75,6 +81,7 @@ public class ServerContTest {
 	@PerfTest(invocations = 10, threads = 2)
 	@Required(max = 10000, average = 8000)
 	public void testDeleteEmployee() {
+		logger.info("Testing DeleteEmployee");
 		server = new Server();
 		int employeeID = 69;
 		
@@ -88,8 +95,9 @@ public class ServerContTest {
 	
 	@Test
 	@PerfTest(invocations = 10, threads = 2)
-	@Required(max = 2000, average = 1000)
+	@Required(max = 5000, average = 3000)
 	public void testGetEmployees() {
+		logger.info("Testing GetEmployee");
 		server = new Server();
 		
 		try {
