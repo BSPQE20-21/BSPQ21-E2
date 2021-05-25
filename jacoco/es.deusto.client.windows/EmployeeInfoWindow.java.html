@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EmployeeInfoWindow.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSPQ21-E2</a> &gt; <a href="index.source.html" class="el_package">es.deusto.client.windows</a> &gt; <span class="el_source">EmployeeInfoWindow.java</span></div><h1>EmployeeInfoWindow.java</h1><pre class="source lang-java linenums">package es.deusto.client.windows;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import es.deusto.serialization.EmployeeData;
+
+public class EmployeeInfoWindow extends JFrame {
+	
+	public EmployeeInfoWindow jframe;
+<span class="fc" id="L25">	private JTextField tId = new JTextField(&quot;&quot;);</span>
+<span class="fc" id="L26">	private JTextField tName = new JTextField(&quot;&quot;);</span>
+<span class="fc" id="L27">	private JTextField tAddress = new JTextField(&quot;&quot;);</span>
+<span class="fc" id="L28">	private JTextField tDepartment = new JTextField(&quot;&quot;);</span>
+<span class="fc" id="L29">	static ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;SystemMessages&quot;, Locale.getDefault());</span>
+	
+	/**
+	 * Window that handles the add employee functionality.
+	 * @param title The name of the window.
+	 */
+<span class="fc" id="L35">	public EmployeeInfoWindow(String title) {</span>
+<span class="fc" id="L36">		jframe = this;</span>
+<span class="fc" id="L37">		jframe.initialize(title);</span>
+<span class="fc" id="L38">		jframe.setVisible(true);</span>
+<span class="fc" id="L39">	}</span>
+	
+	/**
+	 * Initializes the contents of the EmployeeInfoWindow
+	 * @param title The name of the window.
+	 */
+	private void initialize(String title) {
+<span class="fc" id="L46">		jframe.setTitle(title);</span>
+<span class="fc" id="L47">		jframe.setBounds(100, 100, 450, 300);</span>
+<span class="fc" id="L48">		jframe.getContentPane().setLayout(new BorderLayout(0, 0));</span>
+		
+<span class="fc" id="L50">		JPanel southPanel = new JPanel(new FlowLayout());</span>
+<span class="fc" id="L51">		jframe.getContentPane().add(southPanel, BorderLayout.SOUTH);</span>
+		
+<span class="fc" id="L53">		JButton bAddEmp = new JButton(resourceBundle.getString(&quot;b_add_empl&quot;));</span>
+<span class="fc" id="L54">		JButton bExit = new JButton(resourceBundle.getString(&quot;b_quit&quot;));</span>
+<span class="fc" id="L55">		southPanel.add(bAddEmp);</span>
+<span class="fc" id="L56">		southPanel.add(bExit);</span>
+
+<span class="fc" id="L58">		JPanel centralPanel = new JPanel(new GridLayout(4, 2, 2, 0));</span>
+		
+<span class="fc" id="L60">		JLabel lId = new JLabel(resourceBundle.getString(&quot;empl_id&quot;));</span>
+<span class="fc" id="L61">		JLabel lname = new JLabel(resourceBundle.getString(&quot;empl_name&quot;));</span>
+<span class="fc" id="L62">		JLabel laddress = new JLabel(resourceBundle.getString(&quot;empl_address&quot;));</span>
+<span class="fc" id="L63">		JLabel lDepartment = new JLabel(resourceBundle.getString(&quot;empl_department&quot;));</span>
+		
+<span class="fc" id="L65">		tId = new JTextField(&quot;&quot;);</span>
+<span class="fc" id="L66">		tName = new JTextField(&quot;&quot;);</span>
+<span class="fc" id="L67">		tAddress = new JTextField(&quot;&quot;);</span>
+<span class="fc" id="L68">		tDepartment = new JTextField(&quot;&quot;);</span>
+		
+<span class="fc" id="L70">		centralPanel.add(lId);</span>
+<span class="fc" id="L71">		centralPanel.add(tId);</span>
+<span class="fc" id="L72">		centralPanel.add(lname);</span>
+<span class="fc" id="L73">		centralPanel.add(tName);</span>
+<span class="fc" id="L74">		centralPanel.add(laddress);</span>
+<span class="fc" id="L75">		centralPanel.add(tAddress);</span>
+<span class="fc" id="L76">		centralPanel.add(lDepartment);</span>
+<span class="fc" id="L77">		centralPanel.add(tDepartment);</span>
+		
+<span class="fc" id="L79">		jframe.getContentPane().add(centralPanel, BorderLayout.CENTER);</span>
+
+<span class="fc" id="L81">		bExit.addActionListener(new ActionListener() {</span>
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L85">				ClientWindow.menuFrame.setEnabled(true);</span>
+<span class="nc" id="L86">				jframe.dispose();</span>
+<span class="nc" id="L87">			}</span>
+		});
+		
+<span class="fc" id="L90">		bAddEmp.addActionListener(new ActionListener() {</span>
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L94">				ClientWindow.employee.setId(Integer.parseInt(tId.getText()));</span>
+<span class="nc" id="L95">				ClientWindow.employee.setName(tName.getText());</span>
+<span class="nc" id="L96">				ClientWindow.employee.setAddress(tAddress.getText());</span>
+<span class="nc" id="L97">				ClientWindow.employee.setDepartment(tDepartment.getText());</span>
+<span class="nc" id="L98">				ClientWindow.menuFrame.setEnabled(true);</span>
+<span class="nc" id="L99">				ClientWindow.clientApp.registerEmployee(ClientWindow.employee);</span>
+<span class="nc" id="L100">				jframe.dispose();</span>
+<span class="nc" id="L101">			}</span>
+		});
+		
+<span class="fc" id="L104">		jframe.addWindowListener(new WindowAdapter() {</span>
+			 public void windowClosing(WindowEvent e){
+<span class="nc" id="L106">				ClientWindow.menuFrame.setEnabled(true);</span>
+<span class="nc" id="L107">				jframe.dispose();</span>
+<span class="nc" id="L108">	            }</span>
+		});
+<span class="fc" id="L110">	}</span>
+	
+
+	public JTextField gettId() {
+<span class="nc" id="L114">		return tId;</span>
+	}
+
+	public void settId(JTextField tId) {
+<span class="nc" id="L118">		this.tId = tId;</span>
+<span class="nc" id="L119">	}</span>
+
+	public JTextField gettName() {
+<span class="nc" id="L122">		return tName;</span>
+	}
+
+	public void settName(JTextField tName) {
+<span class="nc" id="L126">		this.tName = tName;</span>
+<span class="nc" id="L127">	}</span>
+
+	public JTextField gettAddress() {
+<span class="nc" id="L130">		return tAddress;</span>
+	}
+
+	public void settAddress(JTextField tAddress) {
+<span class="nc" id="L134">		this.tAddress = tAddress;</span>
+<span class="nc" id="L135">	}</span>
+
+	public JTextField gettDepartment() {
+<span class="nc" id="L138">		return tDepartment;</span>
+	}
+
+	public void settDepartment(JTextField tDepartment) {
+<span class="nc" id="L142">		this.tDepartment = tDepartment;</span>
+<span class="nc" id="L143">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

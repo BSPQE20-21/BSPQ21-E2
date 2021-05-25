@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>log4jExample.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSPQ21-E2</a> &gt; <a href="index.source.html" class="el_package">es.deusto.testing.junit</a> &gt; <span class="el_source">log4jExample.java</span></div><h1>log4jExample.java</h1><pre class="source lang-java linenums">package es.deusto.testing.junit;
+
+import org.apache.log4j.Logger;
+
+
+import java.io.*;
+import java.sql.SQLException;
+
+<span class="nc" id="L9">public class log4jExample{</span>
+	   /* Get actual class name to be printed on */
+<span class="nc" id="L11">	   static Logger log = Logger.getLogger(log4jExample.class.getName());</span>
+	   
+<span class="nc" id="L13">	   private static org.apache.log4j.Logger log2 = Logger.getLogger(log4jExample.class);</span>
+	   
+	   @SuppressWarnings(&quot;unchecked&quot;)
+	   public static void main(String[] args)throws IOException,SQLException{
+<span class="nc" id="L17">	      log.debug(&quot;Hello this is a debug message&quot;);</span>
+<span class="nc" id="L18">	      log.info(&quot;Hello this is an info message&quot;);</span>
+	      
+<span class="nc" id="L20">	      log2.trace(&quot;Trace Message!&quot;);</span>
+<span class="nc" id="L21">	      log2.debug(&quot;Debug Message!&quot;);</span>
+<span class="nc" id="L22">	      log2.info(&quot;Info Message!&quot;);</span>
+<span class="nc" id="L23">	      log2.warn(&quot;Warn Message!&quot;);</span>
+<span class="nc" id="L24">	      log2.error(&quot;Error Message!&quot;);</span>
+<span class="nc" id="L25">	      log2.fatal(&quot;Fatal Message!&quot;);</span>
+<span class="nc" id="L26">	   }</span>
+	}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>

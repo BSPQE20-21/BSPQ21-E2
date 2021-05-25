@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RemoveEmployee.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">BSPQ21-E2</a> &gt; <a href="index.source.html" class="el_package">es.deusto.client.windows</a> &gt; <span class="el_source">RemoveEmployee.java</span></div><h1>RemoveEmployee.java</h1><pre class="source lang-java linenums">package es.deusto.client.windows;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.ResourceBundle;
+import java.util.logging.Logger;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import es.deusto.serialization.EmployeeData;
+
+
+
+
+public class RemoveEmployee extends JFrame{
+	
+	public RemoveEmployee jframe;
+<span class="fc" id="L31">	static ResourceBundle resourceBundle = ResourceBundle.getBundle(&quot;SystemMessages&quot;, Locale.getDefault());</span>
+<span class="fc" id="L32">	private static final Logger log = Logger.getLogger(RemoveEmployee.class.getName());</span>
+	
+	
+<span class="fc" id="L35">	public RemoveEmployee(String title, ArrayList&lt;EmployeeData&gt; employees) {</span>
+<span class="fc" id="L36">		jframe = this;</span>
+<span class="fc" id="L37">		jframe.initialize(title, employees);</span>
+<span class="fc" id="L38">		jframe.setVisible(true);</span>
+<span class="fc" id="L39">	}</span>
+	
+	private void initialize(String title, ArrayList&lt;EmployeeData&gt; employees) {
+<span class="fc" id="L42">		log.info(resourceBundle.getString(&quot;rmv_employee_w_init&quot;));</span>
+<span class="fc" id="L43">		jframe.setTitle(title);</span>
+<span class="fc" id="L44">		jframe.setBounds(100, 100, 450, 300);</span>
+<span class="fc" id="L45">		jframe.getContentPane().setLayout(new BorderLayout(0, 0));</span>
+		
+<span class="fc" id="L47">		JPanel southPanel = new JPanel(new FlowLayout());</span>
+<span class="fc" id="L48">		jframe.getContentPane().add(southPanel, BorderLayout.SOUTH);</span>
+		
+<span class="fc" id="L50">		JButton bRmvEmp = new JButton(resourceBundle.getString(&quot;b_rmv_empl&quot;));</span>
+<span class="fc" id="L51">		JButton bExit = new JButton(resourceBundle.getString(&quot;b_quit&quot;));</span>
+<span class="fc" id="L52">		southPanel.add(bRmvEmp);</span>
+<span class="fc" id="L53">		southPanel.add(bExit);</span>
+		
+<span class="fc" id="L55">		JPanel centralPanel = new JPanel();</span>
+<span class="fc" id="L56">		jframe.getContentPane().add(centralPanel, BorderLayout.CENTER);</span>
+		
+		
+		
+<span class="fc" id="L60">		JComboBox&lt;String&gt; comboBox = new JComboBox&lt;String&gt;();</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">		for (EmployeeData employee : employees) {</span>
+<span class="fc" id="L62">			comboBox.addItem(employee.toString());</span>
+<span class="fc" id="L63">		}</span>
+<span class="fc" id="L64">		centralPanel.add(comboBox);</span>
+
+<span class="fc" id="L66">		bExit.addActionListener(new ActionListener() {</span>
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+<span class="nc" id="L70">				ClientWindow.menuFrame.setEnabled(true);</span>
+<span class="nc" id="L71">				jframe.dispose();</span>
+<span class="nc" id="L72">			}</span>
+		});
+		
+<span class="fc" id="L75">		bRmvEmp.addActionListener(new ActionListener() {</span>
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+<span class="nc" id="L80">				int optionDelete = comboBox.getSelectedIndex();</span>
+<span class="nc" id="L81">				log.info(resourceBundle.getString(&quot;chosen_employee_rmv&quot;)+&quot; &quot;+ employees.get(optionDelete).getId() + &quot;, &quot; + employees.get(optionDelete).getName());</span>
+
+<span class="nc" id="L83">				ClientWindow.clientApp.deleteEmployee(employees.get(optionDelete).getId());</span>
+				
+<span class="nc" id="L85">				ClientWindow.menuFrame.setEnabled(true);	</span>
+<span class="nc" id="L86">				jframe.dispose();</span>
+<span class="nc" id="L87">			}</span>
+		});
+		
+<span class="fc" id="L90">		jframe.addWindowListener(new WindowAdapter() {</span>
+			 public void windowClosing(WindowEvent e){
+<span class="nc" id="L92">				ClientWindow.menuFrame.setEnabled(true);</span>
+<span class="nc" id="L93">				jframe.dispose();</span>
+<span class="nc" id="L94">	            }</span>
+		});
+<span class="fc" id="L96">	}</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.6.202009150832</span></div></body></html>
